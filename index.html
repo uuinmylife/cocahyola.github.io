@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>최효준 기업 - 고퀄리티 홈페이지</title>
+<title>스킨프랙쳐 기업 - 고퀄리티 홈페이지</title>
 <style>
 /* -------------------- 기본 리셋 -------------------- */
 * {
@@ -185,20 +185,31 @@ footer p {
   color:#aaa;
 }
 
-/* -------------------- 장난감 이스터에그 -------------------- */
+/* -------------------- 장난감 & 선물 상자 -------------------- */
 .toy {
   width:60px;
   height:60px;
   position:fixed;
-  top:-100px;
+  bottom:20px; /* 화면 아래쪽 선물상자 위치 */
   left:50%;
-  background: url('https://upload.wikimedia.org/wikipedia/commons/6/69/Emoji_u1f308.svg') no-repeat center/contain;
+  transform:translateX(-50%);
+  background: url('https://upload.wikimedia.org/wikipedia/commons/4/45/Emoji_u1f381.svg') no-repeat center/contain; /* 선물 상자 아이콘 */
+  cursor:pointer;
   z-index:2000;
-  pointer-events:none;
-  transition: all 1s ease;
 }
 
-/* -------------------- 버튼 효과 -------------------- */
+.blood-splatter {
+  position:fixed;
+  width:100px;
+  height:100px;
+  pointer-events:none;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Blood_drop.png') no-repeat center/contain;
+  z-index:2500;
+  opacity:0;
+  transition: all 0.5s ease;
+}
+
+/* -------------------- 버튼 -------------------- */
 button {
   padding:10px 20px;
   border:none;
@@ -220,7 +231,7 @@ button:hover {
 
 <!-- Header -->
 <header>
-  <div class="logo">최효준 기업</div>
+  <div class="logo">스킨프랙쳐</div>
   <nav>
     <a href="#hero">홈</a>
     <a href="#products">제품</a>
@@ -232,9 +243,9 @@ button:hover {
 <!-- Hero Section -->
 <section class="hero" id="hero">
   <div class="hero-text">
-    <h1>최효준 기업에 오신 것을 환영합니다</h1>
+    <h1>스킨프랙쳐에 오신 것을 환영합니다</h1>
     <p>혁신과 기술의 미래를 선도하는 기업</p>
-    <button id="surpriseBtn">깜짝 장난감 보기!</button>
+    <p>깜짝 장난감을 클릭해보세요 🎁</p>
   </div>
 </section>
 
@@ -274,7 +285,7 @@ button:hover {
       <img src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&fit=crop&w=800&q=80" alt="News 1">
       <div class="content">
         <h4>뉴스 1</h4>
-        <p>최효준 기업, 글로벌 시장 진출 확대.</p>
+        <p>스킨프랙쳐, 글로벌 시장 진출 확대.</p>
       </div>
     </div>
     <div class="news-card">
@@ -296,31 +307,67 @@ button:hover {
 
 <!-- Footer -->
 <footer id="contact">
-  <p>대표: 최효준 | © 2025 최효준 기업 | All Rights Reserved</p>
+  <p>대표: 최효준 | © 2025 스킨프랙쳐 | All Rights Reserved</p>
 </footer>
 
-<!-- 장난감 이스터에그 -->
+<!-- 선물상자 장난감 -->
 <div class="toy" id="toy"></div>
+<div class="blood-splatter" id="blood"></div>
 
 <script>
-// -------------------- 장난감 기능 --------------------
+// -------------------- 장난감 클릭 이벤트 --------------------
 const toy = document.getElementById('toy');
-const btn = document.getElementById('surpriseBtn');
+const blood = document.getElementById('blood');
 
-btn.addEventListener('click', () => {
-  // 랜덤 위치
-  const x = Math.random() * (window.innerWidth - 60);
-  const y = Math.random() * (window.innerHeight - 60);
-  toy.style.left = x + 'px';
-  toy.style.top = y + 'px';
-  toy.style.transform = `rotate(${Math.random()*360}deg) scale(${0.5+Math.random()*1})`;
-  // 사라졌다 나타나는 효과
-  toy.style.transition = 'all 0.8s ease';
-  toy.style.opacity = 1;
-  setTimeout(() => { toy.style.opacity = 0; toy.style.top = '-100px'; }, 1500);
+toy.addEventListener('click', () => {
+  // 선택지 생성
+  const choiceBox = document.createElement('div');
+  choiceBox.style.position = 'fixed';
+  choiceBox.style.bottom = '100px';
+  choiceBox.style.left = '50%';
+  choiceBox.style.transform = 'translateX(-50%)';
+  choiceBox.style.background = 'rgba(0,0,0,0.9)';
+  choiceBox.style.color = 'white';
+  choiceBox.style.padding = '20px 30px';
+  choiceBox.style.borderRadius = '15px';
+  choiceBox.style.zIndex = '3000';
+  choiceBox.style.textAlign = 'center';
+  choiceBox.style.fontSize = '1.1rem';
+  choiceBox.innerHTML = `
+    어떤 효과를 볼래요?<br><br>
+    <button id="goreBtn">고어 효과 💀</button>
+    <button id="fartBtn">안방구 효과 💨</button>
+  `;
+  document.body.appendChild(choiceBox);
+
+  document.getElementById('goreBtn').addEventListener('click', () => {
+    triggerEffect('gore');
+    choiceBox.remove();
+  });
+
+  document.getElementById('fartBtn').addEventListener('click', () => {
+    triggerEffect('fart');
+    choiceBox.remove();
+  });
 });
 
-// -------------------- 스크롤 헤더 투명화 --------------------
+// -------------------- 효과 트리거 --------------------
+function triggerEffect(type){
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 100);
+
+  if(type === 'gore'){
+    blood.style.left = x + 'px';
+    blood.style.top = y + 'px';
+    blood.style.opacity = 1;
+    blood.style.transform = `rotate(${Math.random()*360}deg) scale(${0.5+Math.random()*1})`;
+    setTimeout(() => { blood.style.opacity = 0; }, 1000);
+  } else if(type === 'fart'){
+    alert("💨 안방구 효과 발동!"); // 간단하게 알림으로 처리
+  }
+}
+
+// -------------------- 헤더 투명화 --------------------
 window.addEventListener('scroll', () => {
   const header = document.querySelector('header');
   if(window.scrollY > 50){
@@ -332,6 +379,5 @@ window.addEventListener('scroll', () => {
   }
 });
 </script>
-
 </body>
 </html>
