@@ -3,47 +3,109 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>스킨프랙쳐 인터랙티브 홈페이지</title>
+<title>스킨프랙쳐 - 프리미엄 인터랙티브 홈페이지</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-/* -------------------- 기본 리셋 -------------------- */
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
-body{background:#f9f9f9;color:#111;overflow-x:hidden;}
-header{width:100%;height:80px;background:#0a0a0a;display:flex;align-items:center;justify-content:space-between;padding:0 50px;position:fixed;top:0;left:0;z-index:1000;transition:0.3s;}
-header .logo{color:white;font-size:1.8rem;font-weight:bold;letter-spacing:2px;}
-header nav a{color:white;text-decoration:none;margin-left:30px;font-weight:500;transition:0.3s;}
-header nav a:hover{color:#00bfff;}
-.hero{width:100%;height:100vh;background:url('https://images.unsplash.com/photo-1612832021035-0d66711c5ee5?auto=format&fit=crop&w=1950&q=80') no-repeat center/cover;display:flex;align-items:center;justify-content:center;position:relative;}
-.hero .hero-text{color:white;text-align:center;background:rgba(0,0,0,0.5);padding:40px;border-radius:10px;}
-.hero h1{font-size:3rem;margin-bottom:20px;}
-.hero p{font-size:1.2rem;}
-section{padding:100px 50px;}
-section h2{font-size:2.2rem;margin-bottom:40px;text-align:center;}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px;}
-.card{background:white;border-radius:15px;box-shadow:0 10px 20px rgba(0,0,0,0.1);overflow:hidden;transition:0.3s;position:relative;}
+:root{
+  --brand-color:#0055FF;
+  --bg-color:#f9f9f9;
+  --text-color:#111;
+  --header-height:80px;
+  --card-radius:15px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:var(--bg-color);color:var(--text-color);overflow-x:hidden;line-height:1.6;}
+header{width:100%;height:var(--header-height);background:white;display:flex;align-items:center;justify-content:space-between;padding:0 50px;position:fixed;top:0;left:0;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.1);transition:0.3s;}
+header .logo img{height:50px;}
+header nav a{color:var(--text-color);text-decoration:none;margin-left:30px;font-weight:600;transition:0.3s;}
+header nav a:hover{color:var(--brand-color);}
+.hero{width:100%;height:100vh;background:url('https://images.unsplash.com/photo-1612832021035-0d66711c5ee5?auto=format&fit=crop&w=1950&q=80') no-repeat center/cover;display:flex;align-items:center;justify-content:center;position:relative;text-align:center;}
+.hero .hero-text{background:rgba(255,255,255,0.85);padding:50px;border-radius:20px;max-width:800px;box-shadow:0 10px 30px rgba(0,0,0,0.2);}
+.hero h1{font-size:3rem;font-weight:800;color:var(--brand-color);margin-bottom:20px;}
+.hero p{font-size:1.2rem;color:#333;margin-bottom:10px;}
+section{padding:120px 50px;}
+section h2{text-align:center;font-size:2.5rem;color:var(--brand-color);margin-bottom:60px;font-weight:700;}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:50px;}
+.card{background:white;border-radius:var(--card-radius);box-shadow:0 15px 30px rgba(0,0,0,0.1);overflow:hidden;transition:0.3s;}
 .card img{width:100%;height:200px;object-fit:cover;}
-.card .content{padding:20px;}
-.card .content h3{margin-bottom:10px;font-size:1.5rem;}
-.card .content p{font-size:1rem;color:#555;line-height:1.5;}
-.card:hover{transform:translateY(-10px);}
-.news{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;}
-.news-card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:0.3s;}
+.card .content{padding:25px;}
+.card .content h3{font-size:1.5rem;margin-bottom:10px;font-weight:700;color:#222;}
+.card .content p{font-size:1rem;color:#555;}
+.card:hover{transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,0.15);}
+.news{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;}
+.news-card{background:white;border-radius:var(--card-radius);overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,0.1);transition:0.3s;}
 .news-card img{width:100%;height:180px;object-fit:cover;}
-.news-card .content{padding:15px;}
-.news-card .content h4{margin-bottom:10px;font-size:1.2rem;}
-.news-card .content p{font-size:0.95rem;color:#666;}
-footer{background:#0a0a0a;color:white;padding:50px;display:flex;flex-direction:column;align-items:center;}
-footer p{margin-top:20px;font-size:0.9rem;color:#aaa;}
-.toy{width:60px;height:60px;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:url('https://upload.wikimedia.org/wikipedia/commons/4/45/Emoji_u1f381.svg') no-repeat center/contain;cursor:pointer;z-index:2000;transition:0.3s;}
-.blood-splatter{position:fixed;width:100px;height:100px;pointer-events:none;background:url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Blood_drop.png') no-repeat center/contain;z-index:2500;opacity:0;transition:all 0.5s ease;}
-button{padding:10px 20px;border:none;border-radius:10px;background:#00bfff;color:white;font-weight:bold;cursor:pointer;transition:0.3s;}
-button:hover{background:#0080ff;}
-.choiceBox{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.9);color:white;padding:20px 30px;border-radius:15px;z-index:3000;text-align:center;font-size:1.1rem;}
+.news-card .content{padding:20px;}
+.news-card .content h4{font-size:1.3rem;margin-bottom:10px;font-weight:600;color:var(--brand-color);}
+.news-card .content p{font-size:1rem;color:#666;}
+.news-card:hover{transform:translateY(-5px);box-shadow:0 15px 35px rgba(0,0,0,0.15);}
+footer{background:#111;color:white;padding:50px;display:flex;flex-direction:column;align-items:center;text-align:center;}
+footer p{margin-top:20px;font-size:0.95rem;color:#aaa;}
+
+/* -------------------- 선물 상자 & 피 -------------------- */
+.toy{
+  width:70px;
+  height:70px;
+  position:fixed;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+  background:url('https://upload.wikimedia.org/wikipedia/commons/4/45/Emoji_u1f381.svg') no-repeat center/contain;
+  cursor:pointer;
+  z-index:9999; /* 모든 요소 위로 */
+  pointer-events:auto; /* 클릭 보장 */
+}
+.blood-splatter{
+  position:fixed;
+  width:100px;
+  height:100px;
+  pointer-events:none;
+  background:url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Blood_drop.png') no-repeat center/contain;
+  z-index:2500;
+  opacity:0;
+  transition:all 0.5s ease;
+}
+.choiceBox{
+  position:fixed;
+  bottom:120px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,0.95);
+  color:white;
+  padding:25px 35px;
+  border-radius:20px;
+  z-index:3000;
+  text-align:center;
+  font-size:1.2rem;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+button{
+  padding:12px 25px;
+  border:none;
+  border-radius:12px;
+  background:var(--brand-color);
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+  font-size:1rem;
+  transition:0.3s;
+  margin:0 10px;
+}
+button:hover{background:#003bb3;}
+@media(max-width:768px){
+  header{padding:0 20px;}
+  section{padding:100px 20px;}
+  .hero .hero-text{padding:30px;}
+  .choiceBox{font-size:1rem;padding:20px 25px;}
+  button{padding:10px 20px;margin:5px;}
+}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">스킨프랙쳐</div>
+  <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Logo_mockup_example.svg/1200px-Logo_mockup_example.svg.png" alt="스킨프랙쳐 로고"></div>
   <nav>
     <a href="#hero">홈</a>
     <a href="#products">제품</a>
@@ -63,18 +125,18 @@ button:hover{background:#0080ff;}
 <section id="products">
 <h2>주요 제품</h2>
 <div class="products">
-  <div class="card"><img src="https://images.unsplash.com/photo-1606813902897-49ab9b52d4b4?auto=format&fit=crop&w=800&q=80"><div class="content"><h3>제품 A</h3><p>프리미엄 기술 적용.</p></div></div>
-  <div class="card"><img src="https://images.unsplash.com/photo-1574180045827-681f8a1a9622?auto=format&fit=crop&w=800&q=80"><div class="content"><h3>제품 B</h3><p>혁신 디자인 & 성능.</p></div></div>
-  <div class="card"><img src="https://images.unsplash.com/photo-1581291519195-ef11498d1cfb?auto=format&fit=crop&w=800&q=80"><div class="content"><h3>제품 C</h3><p>사용자 친화적 스마트 기능.</p></div></div>
+  <div class="card"><img src="https://images.unsplash.com/photo-1606813902897-49ab9b52d4b4?auto=format&fit=crop&w=800&q=80"><div class="content"><h3>제품 A</h3><p>프리미엄 기술 적용</p></div></div>
+  <div class="card"><img src="https://images.unsplash.com/photo-1574180045827-681f8a1a9622?auto=format&fit=crop&w=800&q=80"><div class="content"><h3>제품 B</h3><p>혁신 디자인 & 성능</p></div></div>
+  <div class="card"><img src="https://images.unsplash.com/photo-1581291519195-ef11498d1cfb?auto=format&fit=crop&w=800&q=80"><div class="content"><h3>제품 C</h3><p>사용자 친화적 스마트 기능</p></div></div>
 </div>
 </section>
 
 <section id="news">
 <h2>최신 뉴스</h2>
 <div class="news">
-  <div class="news-card"><img src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&fit=crop&w=800&q=80"><div class="content"><h4>뉴스 1</h4><p>글로벌 시장 진출 확대.</p></div></div>
-  <div class="news-card"><img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=800&q=80"><div class="content"><h4>뉴스 2</h4><p>최첨단 연구소 오픈, 기술 개발 가속화.</p></div></div>
-  <div class="news-card"><img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80"><div class="content"><h4>뉴스 3</h4><p>지역사회 공헌 강화.</p></div></div>
+  <div class="news-card"><img src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&fit=crop&w=800&q=80"><div class="content"><h4>뉴스 1</h4><p>글로벌 시장 진출 확대</p></div></div>
+  <div class="news-card"><img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=800&q=80"><div class="content"><h4>뉴스 2</h4><p>최첨단 연구소 오픈, 기술 개발 가속화</p></div></div>
+  <div class="news-card"><img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80"><div class="content"><h4>뉴스 3</h4><p>지역사회 공헌 강화</p></div></div>
 </div>
 </section>
 
@@ -82,41 +144,41 @@ button:hover{background:#0080ff;}
 <p>대표: 최효준 | © 2025 스킨프랙쳐 | All Rights Reserved</p>
 </footer>
 
+<!-- 항상 마지막에 위치 -->
 <div class="toy" id="toy"></div>
 <div class="blood-splatter" id="blood"></div>
 
 <script>
-// -------------------- 장난감 이벤트 --------------------
+// -------------------- 장난감 클릭 이벤트 --------------------
 const toyElem = document.getElementById('toy');
-const bloodElem = document.getElementById('blood');
 
 ['click','touchstart'].forEach(evt=>{
-  toyElem.addEventListener(evt, e=>{
-    e.preventDefault();
+  toyElem.addEventListener(evt,e=>{
+    e.preventDefault(); // 터치 기본 방지
     showChoiceBox();
   });
 });
 
 function showChoiceBox(){
-  const existing = document.getElementById('choiceBox');
+  const existing=document.getElementById('choiceBox');
   if(existing) existing.remove();
 
-  const box = document.createElement('div');
+  const box=document.createElement('div');
   box.id='choiceBox';
   box.className='choiceBox';
-  box.innerHTML = `어떤 효과를 볼래요?<br><br>
+  box.innerHTML=`어떤 효과를 볼래요?<br><br>
   <button id="goreBtn">고어 효과 💀</button>
   <button id="fartBtn">안방구 효과 💨</button>`;
   document.body.appendChild(box);
 
-  document.getElementById('goreBtn').addEventListener('click',()=>{triggerEffect('gore'); box.remove();});
-  document.getElementById('fartBtn').addEventListener('click',()=>{triggerEffect('fart'); box.remove();});
+  document.getElementById('goreBtn').addEventListener('click',()=>{triggerEffect('gore');box.remove();});
+  document.getElementById('fartBtn').addEventListener('click',()=>{triggerEffect('fart');box.remove();});
 }
 
 function triggerEffect(type){
-  const maxToys = 5; // 동시 등장 장난감 수
+  const maxToys=5;
   for(let i=0;i<maxToys;i++){
-    const toyClone = document.createElement('div');
+    const toyClone=document.createElement('div');
     toyClone.className='blood-splatter';
     document.body.appendChild(toyClone);
     const x=Math.random()*(window.innerWidth-100);
@@ -126,15 +188,16 @@ function triggerEffect(type){
     toyClone.style.opacity=1;
     toyClone.style.transform=`rotate(${Math.random()*360}deg) scale(${0.5+Math.random()})`;
     if(type==='fart'){toyClone.style.background='url("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Green_circle.svg/1200px-Green_circle.svg.png") no-repeat center/contain';}
-    else {toyClone.style.background='url("https://upload.wikimedia.org/wikipedia/commons/2/2e/Blood_drop.png") no-repeat center/contain';}
+    else{toyClone.style.background='url("https://upload.wikimedia.org/wikipedia/commons/2/2e/Blood_drop.png") no-repeat center/contain';}
     setTimeout(()=>{toyClone.remove();},1500);
   }
 }
 
+// 스크롤 헤더 효과
 window.addEventListener('scroll',()=>{
-  const header = document.querySelector('header');
-  if(window.scrollY>50){header.style.background='rgba(10,10,10,0.9)';header.style.backdropFilter='blur(5px)';}
-  else{header.style.background='#0a0a0a';header.style.backdropFilter='none';}
+  const header=document.querySelector('header');
+  if(window.scrollY>50){header.style.background='rgba(255,255,255,0.95)';header.style.backdropFilter='blur(5px)';}
+  else{header.style.background='white';header.style.backdropFilter='none';}
 });
 </script>
 </body>
