@@ -3,233 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>스킨프랙쳐 공식 홈페이지</title>
+<title>스킨프랙쳐 인터랙티브 홈페이지</title>
 <style>
 /* -------------------- 기본 리셋 -------------------- */
-* {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* -------------------- Body & Background -------------------- */
-body {
-  background: #f9f9f9;
-  color: #111;
-  overflow-x: hidden;
-}
-
-/* -------------------- Header -------------------- */
-header {
-  width:100%;
-  height:80px;
-  background:#0a0a0a;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 50px;
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:1000;
-}
-
-header .logo {
-  color:white;
-  font-size:1.8rem;
-  font-weight:bold;
-  letter-spacing:2px;
-}
-
-header nav a {
-  color:white;
-  text-decoration:none;
-  margin-left:30px;
-  font-weight:500;
-  transition: 0.3s;
-}
-
-header nav a:hover {
-  color:#00bfff;
-}
-
-/* -------------------- Hero Section -------------------- */
-.hero {
-  width:100%;
-  height:100vh;
-  background: url('https://images.unsplash.com/photo-1612832021035-0d66711c5ee5?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-}
-
-.hero .hero-text {
-  color:white;
-  text-align:center;
-  background:rgba(0,0,0,0.5);
-  padding:40px;
-  border-radius:10px;
-}
-
-.hero h1 {
-  font-size:3rem;
-  margin-bottom:20px;
-}
-
-.hero p {
-  font-size:1.2rem;
-}
-
-/* -------------------- Section -------------------- */
-section {
-  padding:100px 50px;
-}
-
-section h2 {
-  font-size:2.2rem;
-  margin-bottom:40px;
-  text-align:center;
-}
-
-/* -------------------- Products / Cards -------------------- */
-.products {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:40px;
-}
-
-.card {
-  background:white;
-  border-radius:15px;
-  box-shadow:0 10px 20px rgba(0,0,0,0.1);
-  overflow:hidden;
-  transition:0.3s;
-  position:relative;
-}
-
-.card img {
-  width:100%;
-  height:200px;
-  object-fit:cover;
-}
-
-.card .content {
-  padding:20px;
-}
-
-.card .content h3 {
-  margin-bottom:10px;
-  font-size:1.5rem;
-}
-
-.card .content p {
-  font-size:1rem;
-  color:#555;
-  line-height:1.5;
-}
-
-.card:hover {
-  transform:translateY(-10px);
-}
-
-/* -------------------- News -------------------- */
-.news {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:30px;
-}
-
-.news-card {
-  background:white;
-  border-radius:15px;
-  overflow:hidden;
-  box-shadow:0 5px 15px rgba(0,0,0,0.1);
-  transition:0.3s;
-}
-
-.news-card img {
-  width:100%;
-  height:180px;
-  object-fit:cover;
-}
-
-.news-card .content {
-  padding:15px;
-}
-
-.news-card .content h4 {
-  margin-bottom:10px;
-  font-size:1.2rem;
-}
-
-.news-card .content p {
-  font-size:0.95rem;
-  color:#666;
-}
-
-/* -------------------- Footer -------------------- */
-footer {
-  background:#0a0a0a;
-  color:white;
-  padding:50px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
-footer p {
-  margin-top:20px;
-  font-size:0.9rem;
-  color:#aaa;
-}
-
-/* -------------------- 장난감 & 선물 상자 -------------------- */
-.toy {
-  width:60px;
-  height:60px;
-  position:fixed;
-  bottom:20px; /* 화면 아래쪽 선물상자 위치 */
-  left:50%;
-  transform:translateX(-50%);
-  background: url('https://upload.wikimedia.org/wikipedia/commons/4/45/Emoji_u1f381.svg') no-repeat center/contain; /* 선물 상자 아이콘 */
-  cursor:pointer;
-  z-index:2000;
-}
-
-.blood-splatter {
-  position:fixed;
-  width:100px;
-  height:100px;
-  pointer-events:none;
-  background: url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Blood_drop.png') no-repeat center/contain;
-  z-index:2500;
-  opacity:0;
-  transition: all 0.5s ease;
-}
-
-/* -------------------- 버튼 -------------------- */
-button {
-  padding:10px 20px;
-  border:none;
-  border-radius:10px;
-  background:#00bfff;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover {
-  background:#0080ff;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+body{background:#f9f9f9;color:#111;overflow-x:hidden;}
+header{width:100%;height:80px;background:#0a0a0a;display:flex;align-items:center;justify-content:space-between;padding:0 50px;position:fixed;top:0;left:0;z-index:1000;transition:0.3s;}
+header .logo{color:white;font-size:1.8rem;font-weight:bold;letter-spacing:2px;}
+header nav a{color:white;text-decoration:none;margin-left:30px;font-weight:500;transition:0.3s;}
+header nav a:hover{color:#00bfff;}
+.hero{width:100%;height:100vh;background:url('https://images.unsplash.com/photo-1612832021035-0d66711c5ee5?auto=format&fit=crop&w=1950&q=80') no-repeat center/cover;display:flex;align-items:center;justify-content:center;position:relative;}
+.hero .hero-text{color:white;text-align:center;background:rgba(0,0,0,0.5);padding:40px;border-radius:10px;}
+.hero h1{font-size:3rem;margin-bottom:20px;}
+.hero p{font-size:1.2rem;}
+section{padding:100px 50px;}
+section h2{font-size:2.2rem;margin-bottom:40px;text-align:center;}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px;}
+.card{background:white;border-radius:15px;box-shadow:0 10px 20px rgba(0,0,0,0.1);overflow:hidden;transition:0.3s;position:relative;}
+.card img{width:100%;height:200px;object-fit:cover;}
+.card .content{padding:20px;}
+.card .content h3{margin-bottom:10px;font-size:1.5rem;}
+.card .content p{font-size:1rem;color:#555;line-height:1.5;}
+.card:hover{transform:translateY(-10px);}
+.news{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;}
+.news-card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:0.3s;}
+.news-card img{width:100%;height:180px;object-fit:cover;}
+.news-card .content{padding:15px;}
+.news-card .content h4{margin-bottom:10px;font-size:1.2rem;}
+.news-card .content p{font-size:0.95rem;color:#666;}
+footer{background:#0a0a0a;color:white;padding:50px;display:flex;flex-direction:column;align-items:center;}
+footer p{margin-top:20px;font-size:0.9rem;color:#aaa;}
+.toy{width:60px;height:60px;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:url('https://upload.wikimedia.org/wikipedia/commons/4/45/Emoji_u1f381.svg') no-repeat center/contain;cursor:pointer;z-index:2000;transition:0.3s;}
+.blood-splatter{position:fixed;width:100px;height:100px;pointer-events:none;background:url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Blood_drop.png') no-repeat center/contain;z-index:2500;opacity:0;transition:all 0.5s ease;}
+button{padding:10px 20px;border:none;border-radius:10px;background:#00bfff;color:white;font-weight:bold;cursor:pointer;transition:0.3s;}
+button:hover{background:#0080ff;}
+.choiceBox{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.9);color:white;padding:20px 30px;border-radius:15px;z-index:3000;text-align:center;font-size:1.1rem;}
 </style>
 </head>
 <body>
 
-<!-- Header -->
 <header>
   <div class="logo">스킨프랙쳐</div>
   <nav>
@@ -240,143 +52,89 @@ button:hover {
   </nav>
 </header>
 
-<!-- Hero Section -->
 <section class="hero" id="hero">
   <div class="hero-text">
     <h1>스킨프랙쳐에 오신 것을 환영합니다</h1>
     <p>혁신과 기술의 미래를 선도하는 기업</p>
-    <p>깜짝 장난감을 클릭해보세요 🎁</p>
+    <p>🎁 선물 상자를 클릭해보세요!</p>
   </div>
 </section>
 
-<!-- Products Section -->
 <section id="products">
-  <h2>주요 제품</h2>
-  <div class="products">
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1606813902897-49ab9b52d4b4?auto=format&fit=crop&w=800&q=80" alt="Product 1">
-      <div class="content">
-        <h3>제품 A</h3>
-        <p>최첨단 기술이 적용된 프리미엄 제품.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1574180045827-681f8a1a9622?auto=format&fit=crop&w=800&q=80" alt="Product 2">
-      <div class="content">
-        <h3>제품 B</h3>
-        <p>고급스러운 디자인과 혁신적인 성능.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1581291519195-ef11498d1cfb?auto=format&fit=crop&w=800&q=80" alt="Product 3">
-      <div class="content">
-        <h3>제품 C</h3>
-        <p>사용자 친화적 인터페이스와 스마트 기능.</p>
-      </div>
-    </div>
-  </div>
+<h2>주요 제품</h2>
+<div class="products">
+  <div class="card"><img src="https://images.unsplash.com/photo-1606813902897-49ab9b52d4b4?auto=format&fit=crop&w=800&q=80"><div class="content"><h3>제품 A</h3><p>프리미엄 기술 적용.</p></div></div>
+  <div class="card"><img src="https://images.unsplash.com/photo-1574180045827-681f8a1a9622?auto=format&fit=crop&w=800&q=80"><div class="content"><h3>제품 B</h3><p>혁신 디자인 & 성능.</p></div></div>
+  <div class="card"><img src="https://images.unsplash.com/photo-1581291519195-ef11498d1cfb?auto=format&fit=crop&w=800&q=80"><div class="content"><h3>제품 C</h3><p>사용자 친화적 스마트 기능.</p></div></div>
+</div>
 </section>
 
-<!-- News Section -->
 <section id="news">
-  <h2>최신 뉴스</h2>
-  <div class="news">
-    <div class="news-card">
-      <img src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&fit=crop&w=800&q=80" alt="News 1">
-      <div class="content">
-        <h4>뉴스 1</h4>
-        <p>스킨프랙쳐, 글로벌 시장 진출 확대.</p>
-      </div>
-    </div>
-    <div class="news-card">
-      <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=800&q=80" alt="News 2">
-      <div class="content">
-        <h4>뉴스 2</h4>
-        <p>최첨단 연구소 오픈, 혁신 기술 개발 가속화.</p>
-      </div>
-    </div>
-    <div class="news-card">
-      <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80" alt="News 3">
-      <div class="content">
-        <h4>뉴스 3</h4>
-        <p>사회적 책임 활동으로 지역사회 공헌 강화.</p>
-      </div>
-    </div>
-  </div>
+<h2>최신 뉴스</h2>
+<div class="news">
+  <div class="news-card"><img src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&fit=crop&w=800&q=80"><div class="content"><h4>뉴스 1</h4><p>글로벌 시장 진출 확대.</p></div></div>
+  <div class="news-card"><img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=800&q=80"><div class="content"><h4>뉴스 2</h4><p>최첨단 연구소 오픈, 기술 개발 가속화.</p></div></div>
+  <div class="news-card"><img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80"><div class="content"><h4>뉴스 3</h4><p>지역사회 공헌 강화.</p></div></div>
+</div>
 </section>
 
-<!-- Footer -->
 <footer id="contact">
-  <p>대표: 최효준 | © 2025 스킨프랙쳐 | All Rights Reserved</p>
+<p>대표: 최효준 | © 2025 스킨프랙쳐 | All Rights Reserved</p>
 </footer>
 
-<!-- 선물상자 장난감 -->
 <div class="toy" id="toy"></div>
 <div class="blood-splatter" id="blood"></div>
 
 <script>
-// -------------------- 장난감 클릭 이벤트 --------------------
-const toy = document.getElementById('toy');
-const blood = document.getElementById('blood');
+// -------------------- 장난감 이벤트 --------------------
+const toyElem = document.getElementById('toy');
+const bloodElem = document.getElementById('blood');
 
-toy.addEventListener('click', () => {
-  // 선택지 생성
-  const choiceBox = document.createElement('div');
-  choiceBox.style.position = 'fixed';
-  choiceBox.style.bottom = '100px';
-  choiceBox.style.left = '50%';
-  choiceBox.style.transform = 'translateX(-50%)';
-  choiceBox.style.background = 'rgba(0,0,0,0.9)';
-  choiceBox.style.color = 'white';
-  choiceBox.style.padding = '20px 30px';
-  choiceBox.style.borderRadius = '15px';
-  choiceBox.style.zIndex = '3000';
-  choiceBox.style.textAlign = 'center';
-  choiceBox.style.fontSize = '1.1rem';
-  choiceBox.innerHTML = `
-    어떤 효과를 볼래요?<br><br>
-    <button id="goreBtn">고어 효과 💀</button>
-    <button id="fartBtn">안방구 효과 💨</button>
-  `;
-  document.body.appendChild(choiceBox);
-
-  document.getElementById('goreBtn').addEventListener('click', () => {
-    triggerEffect('gore');
-    choiceBox.remove();
-  });
-
-  document.getElementById('fartBtn').addEventListener('click', () => {
-    triggerEffect('fart');
-    choiceBox.remove();
+['click','touchstart'].forEach(evt=>{
+  toyElem.addEventListener(evt, e=>{
+    e.preventDefault();
+    showChoiceBox();
   });
 });
 
-// -------------------- 효과 트리거 --------------------
-function triggerEffect(type){
-  const x = Math.random() * (window.innerWidth - 100);
-  const y = Math.random() * (window.innerHeight - 100);
+function showChoiceBox(){
+  const existing = document.getElementById('choiceBox');
+  if(existing) existing.remove();
 
-  if(type === 'gore'){
-    blood.style.left = x + 'px';
-    blood.style.top = y + 'px';
-    blood.style.opacity = 1;
-    blood.style.transform = `rotate(${Math.random()*360}deg) scale(${0.5+Math.random()*1})`;
-    setTimeout(() => { blood.style.opacity = 0; }, 1000);
-  } else if(type === 'fart'){
-    alert("💨 안방구 효과 발동!"); // 간단하게 알림으로 처리
+  const box = document.createElement('div');
+  box.id='choiceBox';
+  box.className='choiceBox';
+  box.innerHTML = `어떤 효과를 볼래요?<br><br>
+  <button id="goreBtn">고어 효과 💀</button>
+  <button id="fartBtn">안방구 효과 💨</button>`;
+  document.body.appendChild(box);
+
+  document.getElementById('goreBtn').addEventListener('click',()=>{triggerEffect('gore'); box.remove();});
+  document.getElementById('fartBtn').addEventListener('click',()=>{triggerEffect('fart'); box.remove();});
+}
+
+function triggerEffect(type){
+  const maxToys = 5; // 동시 등장 장난감 수
+  for(let i=0;i<maxToys;i++){
+    const toyClone = document.createElement('div');
+    toyClone.className='blood-splatter';
+    document.body.appendChild(toyClone);
+    const x=Math.random()*(window.innerWidth-100);
+    const y=Math.random()*(window.innerHeight-100);
+    toyClone.style.left=x+'px';
+    toyClone.style.top=y+'px';
+    toyClone.style.opacity=1;
+    toyClone.style.transform=`rotate(${Math.random()*360}deg) scale(${0.5+Math.random()})`;
+    if(type==='fart'){toyClone.style.background='url("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Green_circle.svg/1200px-Green_circle.svg.png") no-repeat center/contain';}
+    else {toyClone.style.background='url("https://upload.wikimedia.org/wikipedia/commons/2/2e/Blood_drop.png") no-repeat center/contain';}
+    setTimeout(()=>{toyClone.remove();},1500);
   }
 }
 
-// -------------------- 헤더 투명화 --------------------
-window.addEventListener('scroll', () => {
+window.addEventListener('scroll',()=>{
   const header = document.querySelector('header');
-  if(window.scrollY > 50){
-    header.style.background = 'rgba(10,10,10,0.9)';
-    header.style.backdropFilter = 'blur(5px)';
-  } else {
-    header.style.background = '#0a0a0a';
-    header.style.backdropFilter = 'none';
-  }
+  if(window.scrollY>50){header.style.background='rgba(10,10,10,0.9)';header.style.backdropFilter='blur(5px)';}
+  else{header.style.background='#0a0a0a';header.style.backdropFilter='none';}
 });
 </script>
 </body>
