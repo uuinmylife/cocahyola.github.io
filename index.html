@@ -1,19 +1,32 @@
+## 💨 인터랙티브 효과 및 스토리 강화
+
+기존의 `triggerEffect` 기능을 완전히 교체하고, 특히 요청하신 **'안방구 효과'에 스토리를 입힌 인터랙션**을 구현했습니다.
+
+이제 선물 상자(`div.toy`)를 클릭하면 선택 상자(`choiceBox`)가 나오고, '안방구 효과'를 선택하면 화면에 \*\*NPC (안방구 인간)\*\*가 나타나 대화를 시작합니다.
+
+### 🛠️ 변경된 HTML/JavaScript 코드
+
+아래 코드를 기존 코드에 덮어쓰시면 됩니다.
+
+-----
+
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>스킨프랙쳐</title>
+<title>스킨프랙쳐 - 미래형 인터랙티브 웹사이트</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* =========================================================================
- * 1. CSS Variables & Base Styles
+ * 1. CSS Variables & Base Styles (생략 - 이전 코드와 동일)
  * ========================================================================= */
 :root{
-  --brand-color: #0077FF; /* Deep Sky Blue */
-  --bg-color: #F8F9FA; /* Light Gray Background */
-  --text-color: #1A1A1A; /* Dark Text */
-  --light-text: #6C757D; /* Sub Text */
+  --brand-color: #0077FF; 
+  --bg-color: #F8F9FA; 
+  --text-color: #1A1A1A; 
+  --light-text: #6C757D; 
   --card-bg: #FFFFFF;
   --card-radius: 25px;
   --header-height-large: 90px;
@@ -30,51 +43,24 @@ body{
   scroll-behavior:smooth;
 }
 
-/* =========================================================================
- * 2. Header & Navigation (Advanced Scroll Effect)
- * ========================================================================= */
+/* 2. Header, 3. Hero, 4. General Section, 5. Products, 6. News, 7. Footer (생략 - 이전 코드와 동일) */
 header{
-  width:100%;
-  height:var(--header-height-large);
-  background:rgba(255,255,255,0.98);
-  backdrop-filter:blur(15px);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 5vw;
-  position:fixed;
-  top:0;left:0;
-  z-index:1000;
-  box-shadow:0 4px 20px rgba(0,0,0,0.08);
-  transition:var(--transition-speed) ease-in-out;
+  width:100%;height:var(--header-height-large);background:rgba(255,255,255,0.98);backdrop-filter:blur(15px);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;position:fixed;top:0;left:0;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.08);transition:var(--transition-speed) ease-in-out;
 }
 header.scrolled{
-  height:var(--header-height-small);
-  padding:0 3vw;
+  height:var(--header-height-small);padding:0 3vw;
 }
 header .logo img{
-  height:40px;
-  transition:var(--transition-speed) ease-in-out;
+  height:40px;transition:var(--transition-speed) ease-in-out;
 }
 header.scrolled .logo img{
   height:30px;
 }
 header nav a{
-  color:var(--text-color);
-  text-decoration:none;
-  margin-left:35px;
-  font-weight:600;
-  font-size:1rem;
-  position:relative;
-  transition:color var(--transition-speed);
+  color:var(--text-color);text-decoration:none;margin-left:35px;font-weight:600;font-size:1rem;position:relative;transition:color var(--transition-speed);
 }
 header nav a::after{
-  content:'';
-  position:absolute;
-  bottom:-5px;left:0;
-  width:0;height:3px;
-  background:var(--brand-color);
-  transition:width var(--transition-speed);
+  content:'';position:absolute;bottom:-5px;left:0;width:0;height:3px;background:var(--brand-color);transition:width var(--transition-speed);
 }
 header nav a:hover{
   color:var(--brand-color);
@@ -82,259 +68,185 @@ header nav a:hover{
 header nav a:hover::after{
   width:100%;
 }
-
-/* =========================================================================
- * 3. Hero Section (Parallax Effect)
- * ========================================================================= */
 .hero{
-  width:100%;
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  overflow:hidden;
-  text-align:center;
-  padding-top:var(--header-height-large);
+  width:100%;height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;text-align:center;padding-top:var(--header-height-large);
 }
 .hero-bg{
-  position:absolute;
-  top:0;left:0;
-  width:100%;height:120%;
-  background:url('https://images.unsplash.com/photo-1612832021035-0d66711c5ee5?auto=format&fit=crop&w=2500&q=80') no-repeat center/cover;
-  z-index:1;
-  transform:translateY(0);
-  transition:transform 0.1s linear; /* Parallax effect handled by JS */
+  position:absolute;top:0;left:0;width:100%;height:120%;background:url('https://images.unsplash.com/photo-1612832021035-0d66711c5ee5?auto=format&fit=crop&w=2500&q=80') no-repeat center/cover;z-index:1;transform:translateY(0);transition:transform 0.1s linear;
 }
 .hero .hero-text{
-  position:relative;
-  z-index:10;
-  background:rgba(255,255,255,0.95);
-  padding:80px;
-  border-radius:var(--card-radius);
-  max-width:900px;
-  box-shadow:0 25px 50px rgba(0,0,0,0.25);
-  animation:fadeInUp 1s ease-out;
+  position:relative;z-index:10;background:rgba(255,255,255,0.95);padding:80px;border-radius:var(--card-radius);max-width:900px;box-shadow:0 25px 50px rgba(0,0,0,0.25);animation:fadeInUp 1s ease-out;
 }
 .hero h1{
-  font-size:4.5rem;
-  font-weight:800;
-  color:var(--brand-color);
-  margin-bottom:15px;
-  letter-spacing:-2px;
+  font-size:4.5rem;font-weight:800;color:var(--brand-color);margin-bottom:15px;letter-spacing:-2px;
 }
 .hero p{
-  font-size:1.4rem;
-  color:var(--light-text);
-  margin-bottom:10px;
+  font-size:1.4rem;color:var(--light-text);margin-bottom:10px;
 }
 .hero .cta{
-  font-size:1.1rem;
-  font-weight:700;
-  color:var(--text-color);
-  transition:color 0.3s;
+  font-size:1.1rem;font-weight:700;color:var(--text-color);transition:color 0.3s;
 }
 .hero .cta:hover{
   color:var(--brand-color);
 }
 @keyframes fadeInUp{
-  0%{opacity:0;transform:translateY(20px);}
-  100%{opacity:1;transform:translateY(0);}
+  0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);}
 }
-
-/* =========================================================================
- * 4. General Section & Title Styles
- * ========================================================================= */
 section{
-  padding:120px 5vw;
-  position:relative;
+  padding:120px 5vw;position:relative;
 }
 section h2{
-  text-align:center;
-  font-size:3.5rem;
-  color:var(--text-color);
-  margin-bottom:80px;
-  font-weight:700;
-  position:relative;
+  text-align:center;font-size:3.5rem;color:var(--text-color);margin-bottom:80px;font-weight:700;position:relative;
 }
 section h2::after{
-  content:'';
-  position:absolute;
-  bottom:-15px;left:50%;
-  transform:translateX(-50%);
-  width:100px;height:6px;
-  background:var(--brand-color);
-  border-radius:3px;
+  content:'';position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);width:100px;height:6px;background:var(--brand-color);border-radius:3px;
 }
-
-/* =========================================================================
- * 5. Products Section (3D Tilt Effect)
- * ========================================================================= */
 .products{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:60px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:60px;
 }
 .card{
-  background:var(--card-bg);
-  border-radius:var(--card-radius);
-  box-shadow:0 15px 40px rgba(0,0,0,0.1);
-  overflow:hidden;
-  transform-style:preserve-3d;
-  transition:transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth Tilt */
-  will-change:transform;
+  background:var(--card-bg);border-radius:var(--card-radius);box-shadow:0 15px 40px rgba(0,0,0,0.1);overflow:hidden;transform-style:preserve-3d;transition:transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);will-change:transform;
 }
 .card-inner{
-  transform-style:preserve-3d;
-  transition:var(--transition-speed);
+  transform-style:preserve-3d;transition:var(--transition-speed);
 }
 .card img{
-  width:100%;
-  height:240px;
-  object-fit:cover;
+  width:100%;height:240px;object-fit:cover;
 }
 .card .content{
-  padding:30px;
-  transform:translateZ(10px); /* 3D effect base */
+  padding:30px;transform:translateZ(10px);
 }
 .card .content h3{
-  font-size:1.8rem;
-  margin-bottom:10px;
-  font-weight:700;
-  color:var(--brand-color);
+  font-size:1.8rem;margin-bottom:10px;font-weight:700;color:var(--brand-color);
 }
 .card .content p{
-  font-size:1.05rem;
-  color:var(--light-text);
+  font-size:1.05rem;color:var(--light-text);
 }
-/* Scroll Animation Class */
 .animate-on-scroll{
-  opacity:0;
-  transform:translateY(50px);
-  transition:opacity 0.8s ease-out, transform 0.8s ease-out;
+  opacity:0;transform:translateY(50px);transition:opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 .animate-on-scroll.in-view{
-  opacity:1;
-  transform:translateY(0);
+  opacity:1;transform:translateY(0);
 }
-
-/* =========================================================================
- * 6. News Section
- * ========================================================================= */
 .news{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
-  gap:40px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:40px;
 }
 .news-card{
-  background:var(--card-bg);
-  border-radius:var(--card-radius);
-  overflow:hidden;
-  box-shadow:0 10px 30px rgba(0,0,0,0.08);
-  transition:var(--transition-speed);
-  border:1px solid #e0e0e0;
+  background:var(--card-bg);border-radius:var(--card-radius);overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.08);transition:var(--transition-speed);border:1px solid #e0e0e0;
 }
 .news-card:hover{
-  box-shadow:0 20px 45px rgba(0,0,0,0.15);
-  transform:translateY(-5px);
+  box-shadow:0 20px 45px rgba(0,0,0,0.15);transform:translateY(-5px);
 }
 .news-card img{
-  width:100%;
-  height:220px;
-  object-fit:cover;
+  width:100%;height:220px;object-fit:cover;
 }
 .news-card .content{
   padding:25px;
 }
 .news-card .content h4{
-  font-size:1.5rem;
-  margin-bottom:8px;
-  font-weight:700;
-  color:var(--text-color);
+  font-size:1.5rem;margin-bottom:8px;font-weight:700;color:var(--text-color);
 }
 .news-card .content p{
-  font-size:0.95rem;
-  color:var(--light-text);
+  font-size:0.95rem;color:var(--light-text);
 }
-
-/* =========================================================================
- * 7. Footer
- * ========================================================================= */
 footer{
-  background:#111;
-  color:white;
-  padding:60px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
+  background:#111;color:white;padding:60px;display:flex;flex-direction:column;align-items:center;text-align:center;
 }
 footer p{
-  margin-top:20px;
-  font-size:0.9rem;
-  color:#aaa;
+  margin-top:20px;font-size:0.9rem;color:#aaa;
 }
 
 /* =========================================================================
- * 8. Gimmick (Interactive Toy) Styles
+ * 8. Gimmick (Interactive Toy) Styles - 수정/추가
  * ========================================================================= */
 .toy{
-  width:70px;height:70px;
-  position:fixed;bottom:40px;right:40px; /* 위치 변경 */
-  background:url('https://upload.wikimedia.org/wikipedia/commons/4/45/Emoji_u1f381.svg') no-repeat center/contain;
-  cursor:pointer;
-  z-index:99999;
-  animation:float 2s ease-in-out infinite, pulse 1.5s infinite;
-  border-radius:50%;
-  box-shadow:0 0 0 0 rgba(0, 119, 255, 0.7);
-  transition:background-color 0.3s;
+  width:70px;height:70px;position:fixed;bottom:40px;right:40px;background:url('https://upload.wikimedia.org/wikipedia/commons/4/45/Emoji_u1f381.svg') no-repeat center/contain;cursor:pointer;z-index:99999;animation:float 2s ease-in-out infinite, pulse 1.5s infinite;border-radius:50%;box-shadow:0 0 0 0 rgba(0, 119, 255, 0.7);transition:background-color 0.3s;
 }
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
 @keyframes pulse {0%{box-shadow:0 0 0 0 rgba(0, 119, 255, 0.5);}70%{box-shadow:0 0 0 20px rgba(0, 119, 255, 0);}100%{box-shadow:0 0 0 0 rgba(0, 119, 255, 0);}}
 
 .choiceBox{
-  position:fixed;
-  bottom:130px;right:20px; /* 위치 변경 */
-  background:rgba(26, 26, 26, 0.98);
-  color:white;
-  padding:25px 30px;
-  border-radius:20px;
-  z-index:3000;
-  text-align:center;
-  font-size:1.1rem;
-  box-shadow:0 15px 40px rgba(0,0,0,0.4);
-  animation:fadeIn 0.3s ease-out;
+  position:fixed;bottom:130px;right:20px;background:rgba(26, 26, 26, 0.98);color:white;padding:25px 30px;border-radius:20px;z-index:3000;text-align:center;font-size:1.1rem;box-shadow:0 15px 40px rgba(0,0,0,0.4);animation:fadeIn 0.3s ease-out;
 }
 @keyframes fadeIn{0%{opacity:0;transform:translateY(10px);}100%{opacity:1;transform:translateY(0);}}
 button{
-  padding:12px 25px;
-  border:none;
-  border-radius:12px;
-  background:var(--brand-color);
-  color:white;
-  font-weight:600;
-  cursor:pointer;
-  font-size:0.95rem;
-  transition:0.3s;
-  margin:8px;
+  padding:12px 25px;border:none;border-radius:12px;background:var(--brand-color);color:white;font-weight:600;cursor:pointer;font-size:0.95rem;transition:0.3s;margin:8px;
 }
 button:hover{background:#0055c7;}
 
 .fx-splatter{
-  position:fixed;
-  width:120px;height:120px;
-  pointer-events:none;
-  background-repeat:no-repeat;
-  background-position:center;
-  background-size:contain;
-  z-index:2500;
-  opacity:0;
-  transition:opacity 0.5s ease-out;
+  position:fixed;width:120px;height:120px;pointer-events:none;background-repeat:no-repeat;background-position:center;background-size:contain;z-index:2500;opacity:0;transition:opacity 0.5s ease-out;
 }
 
-/* =========================================================================
- * 9. Responsive Design
- * ========================================================================= */
+/* --- NPC (Non-Player Character) 스타일 추가 --- */
+.npc-container {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5000;
+    display: none; /* 초기에는 숨김 */
+    flex-direction: column;
+    align-items: center;
+}
+
+.npc-container.active {
+    display: flex;
+}
+
+.npc-character {
+    width: 200px;
+    height: 300px;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/User_Icon.svg/1200px-User_Icon.svg.png') no-repeat center bottom/contain; /* 일반적인 사람 모양 아이콘 */
+    cursor: pointer;
+    transition: transform 0.2s ease-out;
+}
+.npc-character:hover {
+    transform: translateY(-5px);
+}
+
+.npc-speech-bubble {
+    background: white;
+    color: var(--text-color);
+    padding: 15px 25px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    max-width: 400px;
+    position: relative;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+.npc-speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid white;
+}
+
+/* --- 방구 효과 스타일 추가 --- */
+.fart-cloud {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Green_circle.svg/1200px-Green_circle.svg.png') no-repeat center/contain;
+    opacity: 0;
+    transition: all 0.5s ease-out;
+    pointer-events: none;
+    z-index: 5001;
+}
+.fart-cloud.active {
+    opacity: 0.7;
+    transform: translateY(-200px) scale(1.5);
+}
+
+/* 9. Responsive Design (생략 - 이전 코드와 동일) */
 @media(max-width:1024px){
   .hero h1{font-size:3.5rem;}
   .hero p{font-size:1.2rem;}
@@ -342,7 +254,7 @@ button:hover{background:#0055c7;}
 }
 @media(max-width:768px){
   header{padding:0 20px;}
-  header nav{display:none;} /* Mobile menu simplified */
+  header nav{display:none;}
   section{padding:80px 20px;}
   .hero .hero-text{padding:50px 30px;}
   .hero h1{font-size:2.5rem;}
@@ -440,6 +352,11 @@ button:hover{background:#0055c7;}
 </footer>
 
 <div class="toy" id="toy"></div>
+<div class="npc-container" id="npcContainer">
+    <div class="npc-speech-bubble" id="npcSpeech"></div>
+    <div class="npc-character" id="npcCharacter"></div>
+</div>
+<div class="fart-cloud" id="fartCloud"></div>
 
 <script>
 // =========================================================================
@@ -448,72 +365,56 @@ button:hover{background:#0055c7;}
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // 1. Header Scroll Effect
+  // 1. Header Scroll Effect (생략 - 이전 코드와 동일)
   const header = document.querySelector('header');
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 50);
   });
 
-  // 2. Parallax Hero Background Effect
+  // 2. Parallax Hero Background Effect (생략 - 이전 코드와 동일)
   const heroBg = document.getElementById('hero-bg');
   window.addEventListener('scroll', () => {
     const scrollPosition = window.scrollY;
-    // 배경을 스크롤 양의 20%만큼만 움직이게 하여 시차 효과 생성
     heroBg.style.transform = `translateY(${scrollPosition * 0.2}px)`;
   });
 
 
-  // 3. Intersection Observer for Scroll Animation
+  // 3. Intersection Observer for Scroll Animation (생략 - 이전 코드와 동일)
   const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.2 // 요소가 20% 보일 때 애니메이션 실행
+    root: null,rootMargin: '0px',threshold: 0.2
   };
-
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
-        // 한 번 실행된 후에는 관찰 중지 (선택 사항)
-        // observer.unobserve(entry.target); 
       }
     });
   }, observerOptions);
-
   document.querySelectorAll('.animate-on-scroll').forEach(el => {
     observer.observe(el);
   });
 
 
-  // 4. 3D Tilt Effect for Cards
+  // 4. 3D Tilt Effect for Cards (생략 - 이전 코드와 동일)
   document.querySelectorAll('.card[data-tilt]').forEach(card => {
     const inner = card.querySelector('.card-inner');
-    
-    // 마우스 이동 감지
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left; // 카드 내에서의 X 위치
-      const y = e.clientY - rect.top;  // 카드 내에서의 Y 위치
-
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
       const halfWidth = rect.width / 2;
       const halfHeight = rect.height / 2;
-
-      // -1.0에서 1.0 사이의 값으로 정규화
-      const rotateX = (y - halfHeight) / halfHeight * 8; // X축 회전 각도 (수직)
-      const rotateY = (x - halfWidth) / halfWidth * -8; // Y축 회전 각도 (수평)
-
-      // CSS 3D 변환 적용
+      const rotateX = (y - halfHeight) / halfHeight * 8;
+      const rotateY = (x - halfWidth) / halfWidth * -8;
       inner.style.transform = `perspective(1000px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
     });
-
-    // 마우스가 떠났을 때 초기화
     card.addEventListener('mouseleave', () => {
       inner.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
     });
   });
 
 
-  // 5. Gimmick (Toy) Interaction
+  // 5. Gimmick (Toy) Interaction - 기능 대폭 수정
   const toyElem = document.getElementById('toy');
   
   // 클릭 이벤트 추가
@@ -523,39 +424,43 @@ document.addEventListener('DOMContentLoaded', () => {
   }));
 
   function showChoiceBox() {
-    // 기존의 choiceBox가 있으면 제거
+    // NPC가 활성화된 상태라면 선택 상자를 표시하지 않습니다.
+    if (document.getElementById('npcContainer').classList.contains('active')) return;
+
     const existing = document.getElementById('choiceBox');
     if (existing) existing.remove();
     
-    // 새로운 choiceBox 생성
     const box = document.createElement('div');
     box.id = 'choiceBox';
     box.className = 'choiceBox';
     box.innerHTML = `어떤 인터랙션 효과를 볼래요?<br><br>
       <button id="goreBtn">💥 고어 효과</button>
-      <button id="fartBtn">💨 안방구 효과</button>
+      <button id="fartBtn">💨 안방구 효과 (스토리!)</button>
       <button id="fireBtn">🔥 불꽃 효과</button>
       <button id="explosionBtn">💣 폭발 효과</button>`;
     document.body.appendChild(box);
 
-    // 이벤트 리스너 연결
     const buttons = ['goreBtn', 'fartBtn', 'fireBtn', 'explosionBtn'];
     buttons.forEach(id => {
       document.getElementById(id).addEventListener('click', () => {
         const type = id.replace('Btn', '');
-        triggerEffect(type);
         box.remove();
+        
+        if (type === 'fart') {
+          startFartQuest(); // 안방구 퀘스트 시작
+        } else {
+          triggerSimpleEffect(type); // 단순 효과 실행
+        }
       });
     });
   }
 
-  function triggerEffect(type) {
+  // 단순 효과 (고어, 불꽃, 폭발)
+  function triggerSimpleEffect(type) {
     const maxSplatter = 12;
     let imgUrl = '';
     
-    // 효과 타입에 따른 이미지 URL 설정
     switch(type) {
-      case 'fart': imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Green_circle.svg/1200px-Green_circle.svg.png'; break;
       case 'fire': imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Fire_icon.png'; break;
       case 'explosion': imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Explosion_icon.png'; break;
       default: imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/2/2e/Blood_drop.png'; // Gore (default)
@@ -566,7 +471,6 @@ document.addEventListener('DOMContentLoaded', () => {
       fx.className = 'fx-splatter';
       document.body.appendChild(fx);
 
-      // 무작위 위치 설정
       const x = Math.random() * (window.innerWidth - 150);
       const y = Math.random() * (window.innerHeight - 150);
       
@@ -575,24 +479,113 @@ document.addEventListener('DOMContentLoaded', () => {
       fx.style.backgroundImage = `url('${imgUrl}')`;
       fx.style.opacity = 1;
       
-      // 무작위 회전 및 크기 설정
       fx.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.6 + Math.random() * 0.8})`;
 
-      // 0.1초 후 애니메이션 시작 (opacity는 이미 1)
       setTimeout(() => {
-        fx.style.opacity = 0; // 서서히 사라지도록
-        fx.style.transform += ` translateY(${50 - Math.random() * 100}px)`; // 위아래로 약간 이동
+        fx.style.opacity = 0;
+        fx.style.transform += ` translateY(${50 - Math.random() * 100}px)`;
       }, 100);
 
-      // 2초 후 DOM에서 제거
       setTimeout(() => {
         fx.remove();
       }, 2000);
     }
   }
 
+  // 6. 안방구 퀘스트 로직
+  const npcContainer = document.getElementById('npcContainer');
+  const npcSpeech = document.getElementById('npcSpeech');
+  const npcCharacter = document.getElementById('npcCharacter');
+  const fartCloud = document.getElementById('fartCloud');
+  let questStep = 0;
+
+  const dialogue = [
+    "안녕! 무슨 일 때문에 나를 찾아왔어? 나는 안방구라고 해.", // Step 0: 시작
+    "아하, 네가 나에게 '궁극의 방구'를 요구하는 사람이구나! 사실 내가 요즘 장이 안 좋아서 말이야...", // Step 1
+    "지금은 힘들어... 내 머리 위로 **클릭**을 3번 해줘야만 에너지가 채워져서 방구를 뀔 수 있을 거야. 부탁해!", // Step 2: 미션 제시
+    "좋아! 에너지가 가득 찼어! 그럼 약속대로...", // Step 3: 미션 완료
+    "푸...푸아아아앙! (대단한 방구 소리가 울려 퍼진다!)", // Step 4: 방구 실행
+    "고마워! 이제 나는 다시 평범한 NPC로 돌아갈게. 즐거운 시간이었어!" // Step 5: 마무리
+  ];
+
+  function setDialogue(text) {
+    npcSpeech.textContent = text;
+  }
+
+  function startFartQuest() {
+    npcContainer.classList.add('active');
+    questStep = 0;
+    setDialogue(dialogue[questStep]);
+    
+    // 다음 대화 진행을 위해 캐릭터 클릭 이벤트를 일시적으로 사용
+    npcCharacter.removeEventListener('click', fartQuestHandler);
+    npcCharacter.addEventListener('click', fartQuestHandler);
+  }
+
+  function fartQuestHandler() {
+    questStep++;
+    
+    if (questStep === 2) {
+      // 미션 단계: 클릭 횟수를 세기 위해 이벤트 핸들러 변경
+      setDialogue(dialogue[questStep]);
+      npcCharacter.removeEventListener('click', fartQuestHandler);
+      startClickMission(3); // 3번 클릭 미션 시작
+    } else if (questStep < dialogue.length - 1) {
+      // 일반 대화 진행
+      setDialogue(dialogue[questStep]);
+    } else if (questStep === dialogue.length - 1) {
+      // 마무리 대화
+      setDialogue(dialogue[questStep]);
+      setTimeout(resetFartQuest, 3000);
+    }
+  }
+
+  function startClickMission(clicksNeeded) {
+    let clickCount = 0;
+    
+    const clickMissionHandler = () => {
+      clickCount++;
+      npcSpeech.textContent = `에너지 충전 중... ${clickCount} / ${clicksNeeded}회`;
+
+      if (clickCount >= clicksNeeded) {
+        npcCharacter.removeEventListener('click', clickMissionHandler); // 미션 완료
+        
+        // Step 3 (미션 완료 대화)로 이동
+        questStep = 3;
+        setDialogue(dialogue[questStep]);
+        
+        // 1초 후 방구 실행
+        setTimeout(executeFart, 1000);
+      }
+    };
+    
+    npcCharacter.addEventListener('click', clickMissionHandler);
+  }
+
+  function executeFart() {
+    // Step 4 (방구 실행 대화)로 이동
+    questStep = 4;
+    setDialogue(dialogue[questStep]);
+    
+    // 방구 시각 효과
+    fartCloud.style.left = (npcCharacter.getBoundingClientRect().left + npcCharacter.offsetWidth / 2 - 75) + 'px';
+    fartCloud.style.bottom = (npcCharacter.offsetHeight + 10) + 'px';
+    fartCloud.classList.add('active');
+    
+    // 1.5초 후 마무리 대화로 이동
+    setTimeout(() => {
+      fartCloud.classList.remove('active');
+      fartQuestHandler(); 
+    }, 1500);
+  }
+
+  function resetFartQuest() {
+    npcContainer.classList.remove('active');
+    npcCharacter.removeEventListener('click', fartQuestHandler);
+  }
 });
 </script>
 
 </body>
 </html>
+```
