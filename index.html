@@ -1,16 +1,3 @@
-## 💨 인터랙티브 효과 및 스토리 강화
-
-기존의 `triggerEffect` 기능을 완전히 교체하고, 특히 요청하신 **'안방구 효과'에 스토리를 입힌 인터랙션**을 구현했습니다.
-
-이제 선물 상자(`div.toy`)를 클릭하면 선택 상자(`choiceBox`)가 나오고, '안방구 효과'를 선택하면 화면에 \*\*NPC (안방구 인간)\*\*가 나타나 대화를 시작합니다.
-
-### 🛠️ 변경된 HTML/JavaScript 코드
-
-아래 코드를 기존 코드에 덮어쓰시면 됩니다.
-
------
-
-```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* =========================================================================
- * 1. CSS Variables & Base Styles (생략 - 이전 코드와 동일)
+ * 1. CSS Variables & Base Styles 
  * ========================================================================= */
 :root{
   --brand-color: #0077FF; 
@@ -43,7 +30,7 @@ body{
   scroll-behavior:smooth;
 }
 
-/* 2. Header, 3. Hero, 4. General Section, 5. Products, 6. News, 7. Footer (생략 - 이전 코드와 동일) */
+/* 2. Header, 3. Hero, 4. General Section, 5. Products, 6. News, 7. Footer (기존 디자인 유지) */
 header{
   width:100%;height:var(--header-height-large);background:rgba(255,255,255,0.98);backdrop-filter:blur(15px);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;position:fixed;top:0;left:0;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.08);transition:var(--transition-speed) ease-in-out;
 }
@@ -157,7 +144,7 @@ footer p{
 }
 
 /* =========================================================================
- * 8. Gimmick (Interactive Toy) Styles - 수정/추가
+ * 8. Gimmick (Interactive Toy) Styles 
  * ========================================================================= */
 .toy{
   width:70px;height:70px;position:fixed;bottom:40px;right:40px;background:url('https://upload.wikimedia.org/wikipedia/commons/4/45/Emoji_u1f381.svg') no-repeat center/contain;cursor:pointer;z-index:99999;animation:float 2s ease-in-out infinite, pulse 1.5s infinite;border-radius:50%;box-shadow:0 0 0 0 rgba(0, 119, 255, 0.7);transition:background-color 0.3s;
@@ -178,14 +165,14 @@ button:hover{background:#0055c7;}
   position:fixed;width:120px;height:120px;pointer-events:none;background-repeat:no-repeat;background-position:center;background-size:contain;z-index:2500;opacity:0;transition:opacity 0.5s ease-out;
 }
 
-/* --- NPC (Non-Player Character) 스타일 추가 --- */
+/* --- NPC (Non-Player Character) 스타일 변경/추가 --- */
 .npc-container {
     position: fixed;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     z-index: 5000;
-    display: none; /* 초기에는 숨김 */
+    display: none; 
     flex-direction: column;
     align-items: center;
 }
@@ -195,14 +182,19 @@ button:hover{background:#0055c7;}
 }
 
 .npc-character {
-    width: 200px;
-    height: 300px;
-    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/User_Icon.svg/1200px-User_Icon.svg.png') no-repeat center bottom/contain; /* 일반적인 사람 모양 아이콘 */
+    /* 요청하신 두 번째 사진과 유사한 상황의 이미지 URL로 대체 */
+    width: 300px;
+    height: 400px; 
+    background: url('https://images.unsplash.com/photo-1616781297594-c15c54212953?auto=format&fit=crop&w=600&q=80') no-repeat center bottom/cover; 
+    border-radius: 10px 10px 0 0;
     cursor: pointer;
     transition: transform 0.2s ease-out;
+    box-shadow: 0 -10px 20px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden; /* 이미지 잘림 방지 */
 }
 .npc-character:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.02);
 }
 
 .npc-speech-bubble {
@@ -216,6 +208,7 @@ button:hover{background:#0055c7;}
     position: relative;
     font-size: 1.1rem;
     font-weight: 500;
+    text-align: center;
 }
 .npc-speech-bubble::after {
     content: '';
@@ -230,28 +223,53 @@ button:hover{background:#0055c7;}
     border-top: 15px solid white;
 }
 
-/* --- 방구 효과 스타일 추가 --- */
+/* --- 방구 효과 스타일 변경 --- */
 .fart-cloud {
     position: fixed;
-    width: 150px;
-    height: 150px;
-    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Green_circle.svg/1200px-Green_circle.svg.png') no-repeat center/contain;
+    font-size: 60px; /* 이모티콘 크기 */
     opacity: 0;
     transition: all 0.5s ease-out;
     pointer-events: none;
     z-index: 5001;
+    transform: translateY(0) scale(1);
+    top: 50%; /* 초기 위치 조정 */
+    left: 50%;
 }
 .fart-cloud.active {
-    opacity: 0.7;
-    transform: translateY(-200px) scale(1.5);
+    opacity: 1;
+    transform: translateY(-250px) scale(2.5); /* 방구 뿜는 애니메이션 */
+}
+
+/* --- 히든 선물 스타일 --- */
+.hidden-gift {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #FFD700, #FFAC33);
+    color: #333;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    z-index: 10000;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    display: none;
+    animation: bounceIn 1s ease-out;
+}
+.hidden-gift p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 10px;
+}
+@keyframes bounceIn {
+    0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0; }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 }
 
 /* 9. Responsive Design (생략 - 이전 코드와 동일) */
-@media(max-width:1024px){
-  .hero h1{font-size:3.5rem;}
-  .hero p{font-size:1.2rem;}
-  section h2{font-size:2.8rem;}
-}
 @media(max-width:768px){
   header{padding:0 20px;}
   header nav{display:none;}
@@ -262,6 +280,8 @@ button:hover{background:#0055c7;}
   .toy{bottom:20px;right:20px;}
   .choiceBox{bottom:100px;right:10px;left:10px;transform:none;font-size:1rem;}
   button{display:block;width:100%;margin:5px 0;}
+  .npc-character {width: 250px; height: 350px;}
+  .hidden-gift {padding: 30px; font-size: 1.5rem;}
 }
 </style>
 </head>
@@ -356,7 +376,10 @@ button:hover{background:#0055c7;}
     <div class="npc-speech-bubble" id="npcSpeech"></div>
     <div class="npc-character" id="npcCharacter"></div>
 </div>
-<div class="fart-cloud" id="fartCloud"></div>
+<div class="fart-cloud" id="fartCloud">💨</div> <div class="hidden-gift" id="hiddenGift">
+    🎉 **축하합니다! 히든 선물 획득!** 🎉
+    <p>100번의 클릭 미션을 완수하셨습니다.<br>당신은 진정한 '방구 마스터'입니다!</p>
+</div>
 
 <script>
 // =========================================================================
@@ -365,13 +388,13 @@ button:hover{background:#0055c7;}
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // 1. Header Scroll Effect (생략 - 이전 코드와 동일)
+  // 1. Header Scroll Effect (기존 유지)
   const header = document.querySelector('header');
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 50);
   });
 
-  // 2. Parallax Hero Background Effect (생략 - 이전 코드와 동일)
+  // 2. Parallax Hero Background Effect (기존 유지)
   const heroBg = document.getElementById('hero-bg');
   window.addEventListener('scroll', () => {
     const scrollPosition = window.scrollY;
@@ -379,7 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // 3. Intersection Observer for Scroll Animation (생략 - 이전 코드와 동일)
+  // 3. Intersection Observer for Scroll Animation (기존 유지)
   const observerOptions = {
     root: null,rootMargin: '0px',threshold: 0.2
   };
@@ -395,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // 4. 3D Tilt Effect for Cards (생략 - 이전 코드와 동일)
+  // 4. 3D Tilt Effect for Cards (기존 유지)
   document.querySelectorAll('.card[data-tilt]').forEach(card => {
     const inner = card.querySelector('.card-inner');
     card.addEventListener('mousemove', (e) => {
@@ -414,18 +437,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // 5. Gimmick (Toy) Interaction - 기능 대폭 수정
+  // 5. Gimmick (Toy) Interaction 
   const toyElem = document.getElementById('toy');
   
-  // 클릭 이벤트 추가
   ['click','touchstart'].forEach(evt => toyElem.addEventListener(evt, (e) => {
     e.preventDefault();
     showChoiceBox();
   }));
 
   function showChoiceBox() {
-    // NPC가 활성화된 상태라면 선택 상자를 표시하지 않습니다.
     if (document.getElementById('npcContainer').classList.contains('active')) return;
+    if (document.getElementById('hiddenGift').style.display === 'block') return;
 
     const existing = document.getElementById('choiceBox');
     if (existing) existing.remove();
@@ -447,9 +469,9 @@ document.addEventListener('DOMContentLoaded', () => {
         box.remove();
         
         if (type === 'fart') {
-          startFartQuest(); // 안방구 퀘스트 시작
+          startFartQuest(); 
         } else {
-          triggerSimpleEffect(type); // 단순 효과 실행
+          triggerSimpleEffect(type); 
         }
       });
     });
@@ -492,19 +514,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 6. 안방구 퀘스트 로직
+  // 6. 안방구 퀘스트 및 히든 선물 로직
   const npcContainer = document.getElementById('npcContainer');
   const npcSpeech = document.getElementById('npcSpeech');
   const npcCharacter = document.getElementById('npcCharacter');
   const fartCloud = document.getElementById('fartCloud');
+  const hiddenGift = document.getElementById('hiddenGift');
+  
   let questStep = 0;
+  let clickCount = 0; // 히든 선물 카운트용
+  const CLICKS_FOR_GIFT = 100;
+  let isMissionActive = false;
 
   const dialogue = [
     "안녕! 무슨 일 때문에 나를 찾아왔어? 나는 안방구라고 해.", // Step 0: 시작
     "아하, 네가 나에게 '궁극의 방구'를 요구하는 사람이구나! 사실 내가 요즘 장이 안 좋아서 말이야...", // Step 1
-    "지금은 힘들어... 내 머리 위로 **클릭**을 3번 해줘야만 에너지가 채워져서 방구를 뀔 수 있을 거야. 부탁해!", // Step 2: 미션 제시
-    "좋아! 에너지가 가득 찼어! 그럼 약속대로...", // Step 3: 미션 완료
-    "푸...푸아아아앙! (대단한 방구 소리가 울려 퍼진다!)", // Step 4: 방구 실행
+    "지금은 힘들어... 나를 **클릭**하면 방구를 뀔 수 있지만, **100번**을 채워야 히든 선물을 줄 수 있어! 도전해보겠어?", // Step 2: 미션 제시
+    "좋아! 방구를 뀌자! (남은 횟수: ${remaining})", // Step 3: 방구 실행
+    "🔥 **축하해! 100번의 클릭 미션 완수!** 🔥", // Step 4: 히든 선물
     "고마워! 이제 나는 다시 평범한 NPC로 돌아갈게. 즐거운 시간이었어!" // Step 5: 마무리
   ];
 
@@ -515,77 +542,92 @@ document.addEventListener('DOMContentLoaded', () => {
   function startFartQuest() {
     npcContainer.classList.add('active');
     questStep = 0;
+    clickCount = 0; // 퀘스트 시작 시 초기화 (선물 획득 후 재시작 시 필요)
+    isMissionActive = true;
+    
     setDialogue(dialogue[questStep]);
     
-    // 다음 대화 진행을 위해 캐릭터 클릭 이벤트를 일시적으로 사용
     npcCharacter.removeEventListener('click', fartQuestHandler);
     npcCharacter.addEventListener('click', fartQuestHandler);
   }
 
   function fartQuestHandler() {
-    questStep++;
-    
-    if (questStep === 2) {
-      // 미션 단계: 클릭 횟수를 세기 위해 이벤트 핸들러 변경
+    if (!isMissionActive) return;
+
+    if (questStep === 0 || questStep === 1) {
+      questStep++;
       setDialogue(dialogue[questStep]);
-      npcCharacter.removeEventListener('click', fartQuestHandler);
-      startClickMission(3); // 3번 클릭 미션 시작
-    } else if (questStep < dialogue.length - 1) {
-      // 일반 대화 진행
+    } else if (questStep === 2) {
+      // Step 2에서 첫 클릭이 발생하면 Step 3 (방구/미션 실행)으로 넘어감
+      questStep = 3; 
+      
+      // 첫 클릭은 방구와 카운트 미션 동시 시작
+      executeFartAndMission();
+
+    } else if (questStep === 3) {
+      // Step 3 (방구/미션 중)
+      executeFartAndMission();
+    } else if (questStep === 4) {
+      // 히든 선물 획득 후 최종 마무리
+      questStep = 5;
       setDialogue(dialogue[questStep]);
-    } else if (questStep === dialogue.length - 1) {
-      // 마무리 대화
-      setDialogue(dialogue[questStep]);
+      isMissionActive = false;
       setTimeout(resetFartQuest, 3000);
     }
   }
 
-  function startClickMission(clicksNeeded) {
-    let clickCount = 0;
-    
-    const clickMissionHandler = () => {
-      clickCount++;
-      npcSpeech.textContent = `에너지 충전 중... ${clickCount} / ${clicksNeeded}회`;
+  function executeFartAndMission() {
+    if (!isMissionActive) return;
 
-      if (clickCount >= clicksNeeded) {
-        npcCharacter.removeEventListener('click', clickMissionHandler); // 미션 완료
-        
-        // Step 3 (미션 완료 대화)로 이동
-        questStep = 3;
-        setDialogue(dialogue[questStep]);
-        
-        // 1초 후 방구 실행
-        setTimeout(executeFart, 1000);
-      }
-    };
-    
-    npcCharacter.addEventListener('click', clickMissionHandler);
-  }
-
-  function executeFart() {
-    // Step 4 (방구 실행 대화)로 이동
-    questStep = 4;
-    setDialogue(dialogue[questStep]);
+    clickCount++;
+    const remaining = CLICKS_FOR_GIFT - clickCount;
     
     // 방구 시각 효과
-    fartCloud.style.left = (npcCharacter.getBoundingClientRect().left + npcCharacter.offsetWidth / 2 - 75) + 'px';
-    fartCloud.style.bottom = (npcCharacter.offsetHeight + 10) + 'px';
-    fartCloud.classList.add('active');
+    triggerFartEffect();
     
-    // 1.5초 후 마무리 대화로 이동
+    if (clickCount >= CLICKS_FOR_GIFT) {
+      // 미션 완료
+      isMissionActive = false;
+      questStep = 4;
+      setDialogue(dialogue[questStep]);
+      showHiddenGift();
+      
+      // 선물 보여준 후 다음 대화로 이동
+      setTimeout(fartQuestHandler, 4000); 
+
+    } else {
+      // 미션 진행 중
+      setDialogue(`좋아! 방구를 뀌자! (남은 횟수: ${remaining}회)`);
+    }
+  }
+  
+  function triggerFartEffect() {
+    // 위치를 캐릭터 위쪽으로 설정
+    const rect = npcCharacter.getBoundingClientRect();
+    fartCloud.style.left = (rect.left + rect.width / 2 - 30) + 'px';
+    fartCloud.style.top = (rect.top + 50) + 'px'; 
+    
+    fartCloud.classList.add('active');
     setTimeout(() => {
-      fartCloud.classList.remove('active');
-      fartQuestHandler(); 
-    }, 1500);
+        fartCloud.classList.remove('active');
+    }, 500); // 0.5초간 방구 이모티콘 노출
+  }
+
+  function showHiddenGift() {
+    hiddenGift.style.display = 'block';
+    // 3초 후 선물 숨기기
+    setTimeout(() => {
+        hiddenGift.style.display = 'none';
+    }, 3000);
   }
 
   function resetFartQuest() {
     npcContainer.classList.remove('active');
     npcCharacter.removeEventListener('click', fartQuestHandler);
+    // clickCount는 유지하여 다음 접속 시에도 히든 선물 획득 여부를 기억하게 할 수 있지만, 여기서는 단순 초기화
   }
 });
 </script>
 
 </body>
 </html>
-```
