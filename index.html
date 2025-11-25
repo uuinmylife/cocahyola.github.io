@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>스킨프랙쳐</title>
+<title>스킨프랙쳐 - 미래형 인터랙티브 웹사이트</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* =========================================================================
@@ -182,7 +182,7 @@ button:hover{background:#0055c7;}
 }
 
 .npc-character {
-    /* 요청하신 두 번째 사진과 유사한 상황의 이미지 URL로 대체 */
+    /* 🚨🚨🚨 '안방구' 캐릭터 이미지 URL을 여기에 직접 넣어주세요. 🚨🚨🚨 */
     width: 300px;
     height: 400px; 
     background: url('https://images.unsplash.com/photo-1616781297594-c15c54212953?auto=format&fit=crop&w=600&q=80') no-repeat center bottom/cover; 
@@ -191,7 +191,7 @@ button:hover{background:#0055c7;}
     transition: transform 0.2s ease-out;
     box-shadow: 0 -10px 20px rgba(0,0,0,0.3);
     position: relative;
-    overflow: hidden; /* 이미지 잘림 방지 */
+    overflow: hidden; 
 }
 .npc-character:hover {
     transform: translateY(-5px) scale(1.02);
@@ -226,18 +226,18 @@ button:hover{background:#0055c7;}
 /* --- 방구 효과 스타일 변경 --- */
 .fart-cloud {
     position: fixed;
-    font-size: 60px; /* 이모티콘 크기 */
+    font-size: 60px; 
     opacity: 0;
     transition: all 0.5s ease-out;
     pointer-events: none;
     z-index: 5001;
     transform: translateY(0) scale(1);
-    top: 50%; /* 초기 위치 조정 */
+    top: 50%; 
     left: 50%;
 }
 .fart-cloud.active {
     opacity: 1;
-    transform: translateY(-250px) scale(2.5); /* 방구 뿜는 애니메이션 */
+    transform: translateY(-250px) scale(2.5); 
 }
 
 /* --- 히든 선물 스타일 --- */
@@ -269,7 +269,12 @@ button:hover{background:#0055c7;}
     100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 }
 
-/* 9. Responsive Design (생략 - 이전 코드와 동일) */
+/* 9. Responsive Design (기존 유지) */
+@media(max-width:1024px){
+  .hero h1{font-size:3.5rem;}
+  .hero p{font-size:1.2rem;}
+  section h2{font-size:2.8rem;}
+}
 @media(max-width:768px){
   header{padding:0 20px;}
   header nav{display:none;}
@@ -437,7 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // 5. Gimmick (Toy) Interaction 
+  // 5. Gimmick (Toy) Interaction - 수정됨
   const toyElem = document.getElementById('toy');
   
   ['click','touchstart'].forEach(evt => toyElem.addEventListener(evt, (e) => {
@@ -445,12 +450,16 @@ document.addEventListener('DOMContentLoaded', () => {
     showChoiceBox();
   }));
 
+  function removeExistingChoiceBox() {
+    const existing = document.getElementById('choiceBox');
+    if (existing) existing.remove();
+  }
+
   function showChoiceBox() {
     if (document.getElementById('npcContainer').classList.contains('active')) return;
     if (document.getElementById('hiddenGift').style.display === 'block') return;
 
-    const existing = document.getElementById('choiceBox');
-    if (existing) existing.remove();
+    removeExistingChoiceBox();
     
     const box = document.createElement('div');
     box.id = 'choiceBox';
@@ -462,30 +471,62 @@ document.addEventListener('DOMContentLoaded', () => {
       <button id="explosionBtn">💣 폭발 효과</button>`;
     document.body.appendChild(box);
 
-    const buttons = ['goreBtn', 'fartBtn', 'fireBtn', 'explosionBtn'];
-    buttons.forEach(id => {
+    document.getElementById('goreBtn').addEventListener('click', () => {
+      removeExistingChoiceBox();
+      showGoreChoiceBox(); // 고어 전용 선택 상자 호출
+    });
+    
+    document.getElementById('fartBtn').addEventListener('click', () => {
+      removeExistingChoiceBox();
+      startFartQuest(); 
+    });
+    
+    document.getElementById('fireBtn').addEventListener('click', () => {
+      removeExistingChoiceBox();
+      triggerSimpleEffect('fire'); 
+    });
+    
+    document.getElementById('explosionBtn').addEventListener('click', () => {
+      removeExistingChoiceBox();
+      triggerSimpleEffect('explosion'); 
+    });
+  }
+
+  function showGoreChoiceBox() {
+    const box = document.createElement('div');
+    box.id = 'choiceBox';
+    box.className = 'choiceBox';
+    box.innerHTML = `고어 효과 종류를 선택하세요:<br><br>
+      <button id="bloodBtn">🩸 기본 혈흔</button>
+      <button id="slimeBtn">🦠 녹색 슬라임</button>
+      <button id="gooBtn">🧪 끈적한 구(Goo)</button>`;
+    document.body.appendChild(box);
+
+    const effectMap = {
+      'bloodBtn': 'https://upload.wikimedia.org/wikipedia/commons/2/2e/Blood_drop.png',
+      'slimeBtn': 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Slime_icon.png', // 임시 슬라임 이미지
+      'gooBtn': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Green_goo_icon.svg/1024px-Green_goo_icon.svg.png' // 임시 구 이미지
+    };
+
+    Object.keys(effectMap).forEach(id => {
       document.getElementById(id).addEventListener('click', () => {
-        const type = id.replace('Btn', '');
-        box.remove();
-        
-        if (type === 'fart') {
-          startFartQuest(); 
-        } else {
-          triggerSimpleEffect(type); 
-        }
+        removeExistingChoiceBox();
+        triggerSimpleEffect(id.replace('Btn', ''), effectMap[id]); 
       });
     });
   }
 
-  // 단순 효과 (고어, 불꽃, 폭발)
-  function triggerSimpleEffect(type) {
+  // 단순 효과 (고어, 불꽃, 폭발) - 수정됨: URL을 인수로 받음
+  function triggerSimpleEffect(type, customUrl) {
     const maxSplatter = 12;
-    let imgUrl = '';
+    let imgUrl = customUrl || '';
     
-    switch(type) {
-      case 'fire': imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Fire_icon.png'; break;
-      case 'explosion': imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Explosion_icon.png'; break;
-      default: imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/2/2e/Blood_drop.png'; // Gore (default)
+    // 고어 외 다른 효과들은 기존 URL 사용
+    if (!customUrl) {
+      switch(type) {
+        case 'fire': imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Fire_icon.png'; break;
+        case 'explosion': imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Explosion_icon.png'; break;
+      }
     }
 
     for (let i = 0; i < maxSplatter; i++) {
@@ -514,7 +555,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 6. 안방구 퀘스트 및 히든 선물 로직
+  // 6. 안방구 퀘스트 및 히든 선물 로직 (기존 유지)
   const npcContainer = document.getElementById('npcContainer');
   const npcSpeech = document.getElementById('npcSpeech');
   const npcCharacter = document.getElementById('npcCharacter');
@@ -522,7 +563,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const hiddenGift = document.getElementById('hiddenGift');
   
   let questStep = 0;
-  let clickCount = 0; // 히든 선물 카운트용
+  let clickCount = 0; 
   const CLICKS_FOR_GIFT = 100;
   let isMissionActive = false;
 
@@ -542,8 +583,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function startFartQuest() {
     npcContainer.classList.add('active');
     questStep = 0;
-    clickCount = 0; // 퀘스트 시작 시 초기화 (선물 획득 후 재시작 시 필요)
     isMissionActive = true;
+    
+    if (clickCount >= CLICKS_FOR_GIFT) {
+        questStep = 4;
+    }
     
     setDialogue(dialogue[questStep]);
     
@@ -558,17 +602,12 @@ document.addEventListener('DOMContentLoaded', () => {
       questStep++;
       setDialogue(dialogue[questStep]);
     } else if (questStep === 2) {
-      // Step 2에서 첫 클릭이 발생하면 Step 3 (방구/미션 실행)으로 넘어감
       questStep = 3; 
-      
-      // 첫 클릭은 방구와 카운트 미션 동시 시작
       executeFartAndMission();
 
     } else if (questStep === 3) {
-      // Step 3 (방구/미션 중)
       executeFartAndMission();
     } else if (questStep === 4) {
-      // 히든 선물 획득 후 최종 마무리
       questStep = 5;
       setDialogue(dialogue[questStep]);
       isMissionActive = false;
@@ -579,30 +618,32 @@ document.addEventListener('DOMContentLoaded', () => {
   function executeFartAndMission() {
     if (!isMissionActive) return;
 
+    if (clickCount >= CLICKS_FOR_GIFT) {
+      triggerFartEffect();
+      setDialogue("이런! 이미 선물을 받았잖아! 그래도 방구는 뀌어줄게. 푸아앙!");
+      setTimeout(resetFartQuest, 1500);
+      return;
+    }
+
     clickCount++;
     const remaining = CLICKS_FOR_GIFT - clickCount;
     
-    // 방구 시각 효과
     triggerFartEffect();
     
     if (clickCount >= CLICKS_FOR_GIFT) {
-      // 미션 완료
       isMissionActive = false;
       questStep = 4;
       setDialogue(dialogue[questStep]);
       showHiddenGift();
       
-      // 선물 보여준 후 다음 대화로 이동
       setTimeout(fartQuestHandler, 4000); 
 
     } else {
-      // 미션 진행 중
       setDialogue(`좋아! 방구를 뀌자! (남은 횟수: ${remaining}회)`);
     }
   }
   
   function triggerFartEffect() {
-    // 위치를 캐릭터 위쪽으로 설정
     const rect = npcCharacter.getBoundingClientRect();
     fartCloud.style.left = (rect.left + rect.width / 2 - 30) + 'px';
     fartCloud.style.top = (rect.top + 50) + 'px'; 
@@ -610,12 +651,11 @@ document.addEventListener('DOMContentLoaded', () => {
     fartCloud.classList.add('active');
     setTimeout(() => {
         fartCloud.classList.remove('active');
-    }, 500); // 0.5초간 방구 이모티콘 노출
+    }, 500); 
   }
 
   function showHiddenGift() {
     hiddenGift.style.display = 'block';
-    // 3초 후 선물 숨기기
     setTimeout(() => {
         hiddenGift.style.display = 'none';
     }, 3000);
@@ -624,7 +664,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function resetFartQuest() {
     npcContainer.classList.remove('active');
     npcCharacter.removeEventListener('click', fartQuestHandler);
-    // clickCount는 유지하여 다음 접속 시에도 히든 선물 획득 여부를 기억하게 할 수 있지만, 여기서는 단순 초기화
   }
 });
 </script>
