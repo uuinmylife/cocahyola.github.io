@@ -3,102 +3,353 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>스킨프랙쳐 - 프리미엄 인터랙티브 홈페이지</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<title>스킨프랙쳐 - 미래형 인터랙티브 웹사이트</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
+/* =========================================================================
+ * 1. CSS Variables & Base Styles
+ * ========================================================================= */
 :root{
-  --brand-color:#0055FF;
-  --bg-color:#f9f9f9;
-  --text-color:#111;
-  --header-height:80px;
-  --card-radius:15px;
+  --brand-color: #0077FF; /* Deep Sky Blue */
+  --bg-color: #F8F9FA; /* Light Gray Background */
+  --text-color: #1A1A1A; /* Dark Text */
+  --light-text: #6C757D; /* Sub Text */
+  --card-bg: #FFFFFF;
+  --card-radius: 25px;
+  --header-height-large: 90px;
+  --header-height-small: 60px;
+  --transition-speed: 0.4s;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-body{background:var(--bg-color);color:var(--text-color);overflow-x:hidden;line-height:1.6;}
-header{width:100%;height:var(--header-height);background:white;display:flex;align-items:center;justify-content:space-between;padding:0 50px;position:fixed;top:0;left:0;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.1);transition:0.3s;}
-header .logo img{height:50px;}
-header nav a{color:var(--text-color);text-decoration:none;margin-left:30px;font-weight:600;transition:0.3s;}
-header nav a:hover{color:var(--brand-color);}
-.hero{width:100%;height:100vh;background:url('https://images.unsplash.com/photo-1612832021035-0d66711c5ee5?auto=format&fit=crop&w=1950&q=80') no-repeat center/cover;display:flex;align-items:center;justify-content:center;position:relative;text-align:center;}
-.hero .hero-text{background:rgba(255,255,255,0.85);padding:50px;border-radius:20px;max-width:800px;box-shadow:0 10px 30px rgba(0,0,0,0.2);}
-.hero h1{font-size:3rem;font-weight:800;color:var(--brand-color);margin-bottom:20px;}
-.hero p{font-size:1.2rem;color:#333;margin-bottom:10px;}
-section{padding:120px 50px;}
-section h2{text-align:center;font-size:2.5rem;color:var(--brand-color);margin-bottom:60px;font-weight:700;}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:50px;}
-.card{background:white;border-radius:var(--card-radius);box-shadow:0 15px 30px rgba(0,0,0,0.1);overflow:hidden;transition:0.3s;}
-.card img{width:100%;height:200px;object-fit:cover;}
-.card .content{padding:25px;}
-.card .content h3{font-size:1.5rem;margin-bottom:10px;font-weight:700;color:#222;}
-.card .content p{font-size:1rem;color:#555;}
-.card:hover{transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,0.15);}
-.news{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;}
-.news-card{background:white;border-radius:var(--card-radius);overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,0.1);transition:0.3s;}
-.news-card img{width:100%;height:180px;object-fit:cover;}
-.news-card .content{padding:20px;}
-.news-card .content h4{font-size:1.3rem;margin-bottom:10px;font-weight:600;color:var(--brand-color);}
-.news-card .content p{font-size:1rem;color:#666;}
-.news-card:hover{transform:translateY(-5px);box-shadow:0 15px 35px rgba(0,0,0,0.15);}
-footer{background:#111;color:white;padding:50px;display:flex;flex-direction:column;align-items:center;text-align:center;}
-footer p{margin-top:20px;font-size:0.95rem;color:#aaa;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{
+  background:var(--bg-color);
+  color:var(--text-color);
+  overflow-x:hidden;
+  line-height:1.6;
+  scroll-behavior:smooth;
+}
 
-/* -------------------- 선물 상자 & 피 -------------------- */
-.toy{
-  width:70px;
-  height:70px;
+/* =========================================================================
+ * 2. Header & Navigation (Advanced Scroll Effect)
+ * ========================================================================= */
+header{
+  width:100%;
+  height:var(--header-height-large);
+  background:rgba(255,255,255,0.98);
+  backdrop-filter:blur(15px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 5vw;
   position:fixed;
-  bottom:30px;
-  left:50%;
+  top:0;left:0;
+  z-index:1000;
+  box-shadow:0 4px 20px rgba(0,0,0,0.08);
+  transition:var(--transition-speed) ease-in-out;
+}
+header.scrolled{
+  height:var(--header-height-small);
+  padding:0 3vw;
+}
+header .logo img{
+  height:40px;
+  transition:var(--transition-speed) ease-in-out;
+}
+header.scrolled .logo img{
+  height:30px;
+}
+header nav a{
+  color:var(--text-color);
+  text-decoration:none;
+  margin-left:35px;
+  font-weight:600;
+  font-size:1rem;
+  position:relative;
+  transition:color var(--transition-speed);
+}
+header nav a::after{
+  content:'';
+  position:absolute;
+  bottom:-5px;left:0;
+  width:0;height:3px;
+  background:var(--brand-color);
+  transition:width var(--transition-speed);
+}
+header nav a:hover{
+  color:var(--brand-color);
+}
+header nav a:hover::after{
+  width:100%;
+}
+
+/* =========================================================================
+ * 3. Hero Section (Parallax Effect)
+ * ========================================================================= */
+.hero{
+  width:100%;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+  padding-top:var(--header-height-large);
+}
+.hero-bg{
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:120%;
+  background:url('https://images.unsplash.com/photo-1612832021035-0d66711c5ee5?auto=format&fit=crop&w=2500&q=80') no-repeat center/cover;
+  z-index:1;
+  transform:translateY(0);
+  transition:transform 0.1s linear; /* Parallax effect handled by JS */
+}
+.hero .hero-text{
+  position:relative;
+  z-index:10;
+  background:rgba(255,255,255,0.95);
+  padding:80px;
+  border-radius:var(--card-radius);
+  max-width:900px;
+  box-shadow:0 25px 50px rgba(0,0,0,0.25);
+  animation:fadeInUp 1s ease-out;
+}
+.hero h1{
+  font-size:4.5rem;
+  font-weight:800;
+  color:var(--brand-color);
+  margin-bottom:15px;
+  letter-spacing:-2px;
+}
+.hero p{
+  font-size:1.4rem;
+  color:var(--light-text);
+  margin-bottom:10px;
+}
+.hero .cta{
+  font-size:1.1rem;
+  font-weight:700;
+  color:var(--text-color);
+  transition:color 0.3s;
+}
+.hero .cta:hover{
+  color:var(--brand-color);
+}
+@keyframes fadeInUp{
+  0%{opacity:0;transform:translateY(20px);}
+  100%{opacity:1;transform:translateY(0);}
+}
+
+/* =========================================================================
+ * 4. General Section & Title Styles
+ * ========================================================================= */
+section{
+  padding:120px 5vw;
+  position:relative;
+}
+section h2{
+  text-align:center;
+  font-size:3.5rem;
+  color:var(--text-color);
+  margin-bottom:80px;
+  font-weight:700;
+  position:relative;
+}
+section h2::after{
+  content:'';
+  position:absolute;
+  bottom:-15px;left:50%;
   transform:translateX(-50%);
+  width:100px;height:6px;
+  background:var(--brand-color);
+  border-radius:3px;
+}
+
+/* =========================================================================
+ * 5. Products Section (3D Tilt Effect)
+ * ========================================================================= */
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:60px;
+}
+.card{
+  background:var(--card-bg);
+  border-radius:var(--card-radius);
+  box-shadow:0 15px 40px rgba(0,0,0,0.1);
+  overflow:hidden;
+  transform-style:preserve-3d;
+  transition:transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth Tilt */
+  will-change:transform;
+}
+.card-inner{
+  transform-style:preserve-3d;
+  transition:var(--transition-speed);
+}
+.card img{
+  width:100%;
+  height:240px;
+  object-fit:cover;
+}
+.card .content{
+  padding:30px;
+  transform:translateZ(10px); /* 3D effect base */
+}
+.card .content h3{
+  font-size:1.8rem;
+  margin-bottom:10px;
+  font-weight:700;
+  color:var(--brand-color);
+}
+.card .content p{
+  font-size:1.05rem;
+  color:var(--light-text);
+}
+/* Scroll Animation Class */
+.animate-on-scroll{
+  opacity:0;
+  transform:translateY(50px);
+  transition:opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.animate-on-scroll.in-view{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* =========================================================================
+ * 6. News Section
+ * ========================================================================= */
+.news{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+  gap:40px;
+}
+.news-card{
+  background:var(--card-bg);
+  border-radius:var(--card-radius);
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  transition:var(--transition-speed);
+  border:1px solid #e0e0e0;
+}
+.news-card:hover{
+  box-shadow:0 20px 45px rgba(0,0,0,0.15);
+  transform:translateY(-5px);
+}
+.news-card img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+.news-card .content{
+  padding:25px;
+}
+.news-card .content h4{
+  font-size:1.5rem;
+  margin-bottom:8px;
+  font-weight:700;
+  color:var(--text-color);
+}
+.news-card .content p{
+  font-size:0.95rem;
+  color:var(--light-text);
+}
+
+/* =========================================================================
+ * 7. Footer
+ * ========================================================================= */
+footer{
+  background:#111;
+  color:white;
+  padding:60px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+footer p{
+  margin-top:20px;
+  font-size:0.9rem;
+  color:#aaa;
+}
+
+/* =========================================================================
+ * 8. Gimmick (Interactive Toy) Styles
+ * ========================================================================= */
+.toy{
+  width:70px;height:70px;
+  position:fixed;bottom:40px;right:40px; /* 위치 변경 */
   background:url('https://upload.wikimedia.org/wikipedia/commons/4/45/Emoji_u1f381.svg') no-repeat center/contain;
   cursor:pointer;
-  z-index:9999; /* 모든 요소 위로 */
-  pointer-events:auto; /* 클릭 보장 */
+  z-index:99999;
+  animation:float 2s ease-in-out infinite, pulse 1.5s infinite;
+  border-radius:50%;
+  box-shadow:0 0 0 0 rgba(0, 119, 255, 0.7);
+  transition:background-color 0.3s;
 }
-.blood-splatter{
-  position:fixed;
-  width:100px;
-  height:100px;
-  pointer-events:none;
-  background:url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Blood_drop.png') no-repeat center/contain;
-  z-index:2500;
-  opacity:0;
-  transition:all 0.5s ease;
-}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+@keyframes pulse {0%{box-shadow:0 0 0 0 rgba(0, 119, 255, 0.5);}70%{box-shadow:0 0 0 20px rgba(0, 119, 255, 0);}100%{box-shadow:0 0 0 0 rgba(0, 119, 255, 0);}}
+
 .choiceBox{
   position:fixed;
-  bottom:120px;
-  left:50%;
-  transform:translateX(-50%);
-  background:rgba(0,0,0,0.95);
+  bottom:130px;right:20px; /* 위치 변경 */
+  background:rgba(26, 26, 26, 0.98);
   color:white;
-  padding:25px 35px;
+  padding:25px 30px;
   border-radius:20px;
   z-index:3000;
   text-align:center;
-  font-size:1.2rem;
-  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  font-size:1.1rem;
+  box-shadow:0 15px 40px rgba(0,0,0,0.4);
+  animation:fadeIn 0.3s ease-out;
 }
+@keyframes fadeIn{0%{opacity:0;transform:translateY(10px);}100%{opacity:1;transform:translateY(0);}}
 button{
   padding:12px 25px;
   border:none;
   border-radius:12px;
   background:var(--brand-color);
   color:white;
-  font-weight:700;
+  font-weight:600;
   cursor:pointer;
-  font-size:1rem;
+  font-size:0.95rem;
   transition:0.3s;
-  margin:0 10px;
+  margin:8px;
 }
-button:hover{background:#003bb3;}
+button:hover{background:#0055c7;}
+
+.fx-splatter{
+  position:fixed;
+  width:120px;height:120px;
+  pointer-events:none;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:contain;
+  z-index:2500;
+  opacity:0;
+  transition:opacity 0.5s ease-out;
+}
+
+/* =========================================================================
+ * 9. Responsive Design
+ * ========================================================================= */
+@media(max-width:1024px){
+  .hero h1{font-size:3.5rem;}
+  .hero p{font-size:1.2rem;}
+  section h2{font-size:2.8rem;}
+}
 @media(max-width:768px){
   header{padding:0 20px;}
-  section{padding:100px 20px;}
-  .hero .hero-text{padding:30px;}
-  .choiceBox{font-size:1rem;padding:20px 25px;}
-  button{padding:10px 20px;margin:5px;}
+  header nav{display:none;} /* Mobile menu simplified */
+  section{padding:80px 20px;}
+  .hero .hero-text{padding:50px 30px;}
+  .hero h1{font-size:2.5rem;}
+  .products, .news{grid-template-columns:1fr;}
+  .toy{bottom:20px;right:20px;}
+  .choiceBox{bottom:100px;right:10px;left:10px;transform:none;font-size:1rem;}
+  button{display:block;width:100%;margin:5px 0;}
 }
 </style>
 </head>
@@ -115,90 +366,233 @@ button:hover{background:#003bb3;}
 </header>
 
 <section class="hero" id="hero">
+  <div class="hero-bg" id="hero-bg"></div>
   <div class="hero-text">
-    <h1>스킨프랙쳐에 오신 것을 환영합니다</h1>
-    <p>혁신과 기술의 미래를 선도하는 기업</p>
-    <p>🎁 선물 상자를 클릭해보세요!</p>
+    <h1>스킨프랙쳐: 혁신의 경계를 넘어</h1>
+    <p>미래 기술과 예술적인 디자인의 완벽한 조화, 지금 경험하세요.</p>
+    <p class="cta">🎁 오른쪽 하단의 선물 아이콘을 클릭해보세요!</p>
   </div>
 </section>
 
 <section id="products">
-<h2>주요 제품</h2>
-<div class="products">
-  <div class="card"><img src="https://images.unsplash.com/photo-1606813902897-49ab9b52d4b4?auto=format&fit=crop&w=800&q=80"><div class="content"><h3>제품 A</h3><p>프리미엄 기술 적용</p></div></div>
-  <div class="card"><img src="https://images.unsplash.com/photo-1574180045827-681f8a1a9622?auto=format&fit=crop&w=800&q=80"><div class="content"><h3>제품 B</h3><p>혁신 디자인 & 성능</p></div></div>
-  <div class="card"><img src="https://images.unsplash.com/photo-1581291519195-ef11498d1cfb?auto=format&fit=crop&w=800&q=80"><div class="content"><h3>제품 C</h3><p>사용자 친화적 스마트 기능</p></div></div>
-</div>
+  <h2>주요 제품 및 솔루션</h2>
+  <div class="products">
+    <div class="card animate-on-scroll" data-tilt>
+      <div class="card-inner">
+        <img src="https://images.unsplash.com/photo-1606813902897-49ab9b52d4b4?auto=format&fit=crop&w=800&q=80">
+        <div class="content">
+          <h3>네오-테크 A.I.</h3>
+          <p>고도의 예측 알고리즘이 적용된 차세대 프리미엄 솔루션. 시장의 흐름을 선도합니다.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card animate-on-scroll" data-tilt>
+      <div class="card-inner">
+        <img src="https://images.unsplash.com/photo-1574180045827-681f8a1a9622?auto=format&fit=crop&w=800&q=80">
+        <div class="content">
+          <h3>제로-디자인 컨셉</h3>
+          <p>미니멀리즘과 강력한 성능을 결합한 제품. 사용자 경험을 극대화합니다.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card animate-on-scroll" data-tilt>
+      <div class="card-inner">
+        <img src="https://images.unsplash.com/photo-1581291519195-ef11498d1cfb?auto=format&fit=crop&w=800&q=80">
+        <div class="content">
+          <h3>울트라-링크 플랫폼</h3>
+          <p>모든 디바이스를 완벽하게 연결하는 스마트 플랫폼. 당신의 삶을 통합합니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section id="news">
-<h2>최신 뉴스</h2>
-<div class="news">
-  <div class="news-card"><img src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&fit=crop&w=800&q=80"><div class="content"><h4>뉴스 1</h4><p>글로벌 시장 진출 확대</p></div></div>
-  <div class="news-card"><img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=800&q=80"><div class="content"><h4>뉴스 2</h4><p>최첨단 연구소 오픈, 기술 개발 가속화</p></div></div>
-  <div class="news-card"><img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80"><div class="content"><h4>뉴스 3</h4><p>지역사회 공헌 강화</p></div></div>
-</div>
+  <h2>스킨프랙쳐 최신 동향</h2>
+  <div class="news">
+    <div class="news-card animate-on-scroll">
+      <img src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&fit=crop&w=800&q=80">
+      <div class="content">
+        <h4>글로벌 마켓 챌린지 성공</h4>
+        <p>신규 시장 진출 후 1분기 만에 괄목할 만한 성과 달성. 세계적인 영향력을 확대합니다.</p>
+      </div>
+    </div>
+    <div class="news-card animate-on-scroll">
+      <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=800&q=80">
+      <div class="content">
+        <h4>R&D 센터, 미래 기술 공개</h4>
+        <p>양자 컴퓨팅 기반의 새로운 연구 결과 발표. 기술 개발에 박차를 가하고 있습니다.</p>
+      </div>
+    </div>
+    <div class="news-card animate-on-scroll">
+      <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80">
+      <div class="content">
+        <h4>지속 가능한 미래를 위한 약속</h4>
+        <p>친환경 공정 도입 및 ESG 경영 강화를 통해 사회적 책임을 다하겠습니다.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <footer id="contact">
-<p>대표: 최효준 | © 2025 스킨프랙쳐 | All Rights Reserved</p>
+  <p>대표: 최효준 | 이메일: contact@skinfracture.com</p>
+  <p>© 2025 Skin Fracture | All Rights Reserved. | Made with modern web technology.</p>
 </footer>
 
-<!-- 항상 마지막에 위치 -->
 <div class="toy" id="toy"></div>
-<div class="blood-splatter" id="blood"></div>
 
 <script>
-// -------------------- 장난감 클릭 이벤트 --------------------
-const toyElem = document.getElementById('toy');
+// =========================================================================
+// JavaScript: Enhanced Interactivity
+// =========================================================================
 
-['click','touchstart'].forEach(evt=>{
-  toyElem.addEventListener(evt,e=>{
-    e.preventDefault(); // 터치 기본 방지
-    showChoiceBox();
+document.addEventListener('DOMContentLoaded', () => {
+
+  // 1. Header Scroll Effect
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 50);
   });
-});
 
-function showChoiceBox(){
-  const existing=document.getElementById('choiceBox');
-  if(existing) existing.remove();
+  // 2. Parallax Hero Background Effect
+  const heroBg = document.getElementById('hero-bg');
+  window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY;
+    // 배경을 스크롤 양의 20%만큼만 움직이게 하여 시차 효과 생성
+    heroBg.style.transform = `translateY(${scrollPosition * 0.2}px)`;
+  });
 
-  const box=document.createElement('div');
-  box.id='choiceBox';
-  box.className='choiceBox';
-  box.innerHTML=`어떤 효과를 볼래요?<br><br>
-  <button id="goreBtn">고어 효과 💀</button>
-  <button id="fartBtn">안방구 효과 💨</button>`;
-  document.body.appendChild(box);
 
-  document.getElementById('goreBtn').addEventListener('click',()=>{triggerEffect('gore');box.remove();});
-  document.getElementById('fartBtn').addEventListener('click',()=>{triggerEffect('fart');box.remove();});
-}
+  // 3. Intersection Observer for Scroll Animation
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.2 // 요소가 20% 보일 때 애니메이션 실행
+  };
 
-function triggerEffect(type){
-  const maxToys=5;
-  for(let i=0;i<maxToys;i++){
-    const toyClone=document.createElement('div');
-    toyClone.className='blood-splatter';
-    document.body.appendChild(toyClone);
-    const x=Math.random()*(window.innerWidth-100);
-    const y=Math.random()*(window.innerHeight-100);
-    toyClone.style.left=x+'px';
-    toyClone.style.top=y+'px';
-    toyClone.style.opacity=1;
-    toyClone.style.transform=`rotate(${Math.random()*360}deg) scale(${0.5+Math.random()})`;
-    if(type==='fart'){toyClone.style.background='url("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Green_circle.svg/1200px-Green_circle.svg.png") no-repeat center/contain';}
-    else{toyClone.style.background='url("https://upload.wikimedia.org/wikipedia/commons/2/2e/Blood_drop.png") no-repeat center/contain';}
-    setTimeout(()=>{toyClone.remove();},1500);
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        // 한 번 실행된 후에는 관찰 중지 (선택 사항)
+        // observer.unobserve(entry.target); 
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    observer.observe(el);
+  });
+
+
+  // 4. 3D Tilt Effect for Cards
+  document.querySelectorAll('.card[data-tilt]').forEach(card => {
+    const inner = card.querySelector('.card-inner');
+    
+    // 마우스 이동 감지
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left; // 카드 내에서의 X 위치
+      const y = e.clientY - rect.top;  // 카드 내에서의 Y 위치
+
+      const halfWidth = rect.width / 2;
+      const halfHeight = rect.height / 2;
+
+      // -1.0에서 1.0 사이의 값으로 정규화
+      const rotateX = (y - halfHeight) / halfHeight * 8; // X축 회전 각도 (수직)
+      const rotateY = (x - halfWidth) / halfWidth * -8; // Y축 회전 각도 (수평)
+
+      // CSS 3D 변환 적용
+      inner.style.transform = `perspective(1000px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    // 마우스가 떠났을 때 초기화
+    card.addEventListener('mouseleave', () => {
+      inner.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+    });
+  });
+
+
+  // 5. Gimmick (Toy) Interaction
+  const toyElem = document.getElementById('toy');
+  
+  // 클릭 이벤트 추가
+  ['click','touchstart'].forEach(evt => toyElem.addEventListener(evt, (e) => {
+    e.preventDefault();
+    showChoiceBox();
+  }));
+
+  function showChoiceBox() {
+    // 기존의 choiceBox가 있으면 제거
+    const existing = document.getElementById('choiceBox');
+    if (existing) existing.remove();
+    
+    // 새로운 choiceBox 생성
+    const box = document.createElement('div');
+    box.id = 'choiceBox';
+    box.className = 'choiceBox';
+    box.innerHTML = `어떤 인터랙션 효과를 볼래요?<br><br>
+      <button id="goreBtn">💥 고어 효과</button>
+      <button id="fartBtn">💨 안방구 효과</button>
+      <button id="fireBtn">🔥 불꽃 효과</button>
+      <button id="explosionBtn">💣 폭발 효과</button>`;
+    document.body.appendChild(box);
+
+    // 이벤트 리스너 연결
+    const buttons = ['goreBtn', 'fartBtn', 'fireBtn', 'explosionBtn'];
+    buttons.forEach(id => {
+      document.getElementById(id).addEventListener('click', () => {
+        const type = id.replace('Btn', '');
+        triggerEffect(type);
+        box.remove();
+      });
+    });
   }
-}
 
-// 스크롤 헤더 효과
-window.addEventListener('scroll',()=>{
-  const header=document.querySelector('header');
-  if(window.scrollY>50){header.style.background='rgba(255,255,255,0.95)';header.style.backdropFilter='blur(5px)';}
-  else{header.style.background='white';header.style.backdropFilter='none';}
+  function triggerEffect(type) {
+    const maxSplatter = 12;
+    let imgUrl = '';
+    
+    // 효과 타입에 따른 이미지 URL 설정
+    switch(type) {
+      case 'fart': imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Green_circle.svg/1200px-Green_circle.svg.png'; break;
+      case 'fire': imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Fire_icon.png'; break;
+      case 'explosion': imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Explosion_icon.png'; break;
+      default: imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/2/2e/Blood_drop.png'; // Gore (default)
+    }
+
+    for (let i = 0; i < maxSplatter; i++) {
+      const fx = document.createElement('div');
+      fx.className = 'fx-splatter';
+      document.body.appendChild(fx);
+
+      // 무작위 위치 설정
+      const x = Math.random() * (window.innerWidth - 150);
+      const y = Math.random() * (window.innerHeight - 150);
+      
+      fx.style.left = x + 'px';
+      fx.style.top = y + 'px';
+      fx.style.backgroundImage = `url('${imgUrl}')`;
+      fx.style.opacity = 1;
+      
+      // 무작위 회전 및 크기 설정
+      fx.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.6 + Math.random() * 0.8})`;
+
+      // 0.1초 후 애니메이션 시작 (opacity는 이미 1)
+      setTimeout(() => {
+        fx.style.opacity = 0; // 서서히 사라지도록
+        fx.style.transform += ` translateY(${50 - Math.random() * 100}px)`; // 위아래로 약간 이동
+      }, 100);
+
+      // 2초 후 DOM에서 제거
+      setTimeout(() => {
+        fx.remove();
+      }, 2000);
+    }
+  }
+
 });
 </script>
+
 </body>
 </html>
